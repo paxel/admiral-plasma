@@ -1,17 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package admiral_plasma.pojo_general.definition;
+
+package admiral_plasma.pojo_general.definition.api;
 
 import java.io.IOException;
 import java.io.Writer;
 
-/**
- *
- * @author axel
- */
+
 public interface IndentedPrinter {
 
     static final int INDENT_SIZE = 3;

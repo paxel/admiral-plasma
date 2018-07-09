@@ -1,23 +1,16 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package admiral_plasma.pojo_general.definition;
+
+package admiral_plasma.pojo_general.definition.api;
 
 import java.io.IOException;
 import java.io.Writer;
 import java.util.List;
 
-/**
- *
- * @author axel
- */
-class CaptnEnum implements IndentedPrinter {
+
+public class CaptnProtoEnum implements IndentedPrinter {
 
     private final List<String> entries;
 
-    public CaptnEnum(String name, List<String> entries) {
+    public CaptnProtoEnum(String name, List<String> entries) {
         this.entries = entries;
         this.name = name;
     }

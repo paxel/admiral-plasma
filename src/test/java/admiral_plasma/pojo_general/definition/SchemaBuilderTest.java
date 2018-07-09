@@ -1,46 +1,71 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package admiral_plasma.pojo_general.definition;
 
+import admiral_plasma.pojo_general.definition.api.BuildinType;
+import admiral_plasma.pojo_general.definition.builder.CapnProtoSchemaBuilder;
+import admiral_plasma.pojo_general.definition.builder.CaptnProtoContainerBuilder;
+import admiral_plasma.pojo_general.definition.api.CaptnProtoSchema;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
-import static java.lang.System.out;
+import java.nio.file.Files;
 import java.util.concurrent.ExecutionException;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 import org.junit.Test;
 
-/**
- *
- * @author axel
- */
 public class SchemaBuilderTest {
-    
+
+    private String NL = "\n";
+
     @Test
     public void testSomeMethod() throws IOException, InterruptedException, ExecutionException {
-        
-        SchemaBuilder builder = new SchemaBuilder();
-        final CaptnContainerBuilder node = builder.addStruct("Node");
+
+        CapnProtoSchemaBuilder builder = new CapnProtoSchemaBuilder();
         {
+            final CaptnProtoContainerBuilder node = builder.addStruct("Node");
             node.addValue("value").setType(BuildinType.FLOAT_32).setDefaultValue("unset");
             node.addValue("otherValue").setType("DemoEnum");
-            final CaptnContainerBuilder sub = node.addStruct("Sub");
             {
+                final CaptnProtoContainerBuilder sub = node.addStruct("Sub");
                 sub.addValue("Some").setType(BuildinType.TEXT).setDefaultValue("hey");
-                final CaptnContainerBuilder deeper = sub.addStruct("evenDeeper");
                 {
+                    final CaptnProtoContainerBuilder deeper = sub.addStruct("evenDeeper");
                     deeper.addValue("last").setType("Exit");
                 }
             }
             node.addEnum("DemoEnum").add("alpha").add("beta").add("gamma");
+            {
+                final CaptnProtoContainerBuilder bodyUnion = node.addBodyUnion();
+                {
+                    final CaptnProtoContainerBuilder helloKitty = bodyUnion.addGroup("hello_kitty");
+                    helloKitty.addValue("tiger").setType(BuildinType.TEXT);
+                    helloKitty.addValue("bear").setType(BuildinType.INT_16);
+                    helloKitty.addValue("lion").setType(BuildinType.UINT_8);
+                }
+                {
+                    final CaptnProtoContainerBuilder barby = bodyUnion.addGroup("barbies");
+                    barby.addValue("maria").setType(BuildinType.TEXT);
+                    barby.addValue("siglinde").setType(BuildinType.INT_16);
+                    barby.addValue("marietta").setType(BuildinType.UINT_8);
+                }
+
+            }
+
+            final CaptnProtoSchema schema = builder.build();
+            final ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+            final PrintWriter printWriter = new PrintWriter(byteArrayOutputStream);
+
+            schema.print(printWriter);
+            printWriter.flush();
+
+            ClassLoader classLoader = getClass().getClassLoader();
+            File file = new File(classLoader.getResource("example.capn").getFile());
+            final String expected = new String(Files.readAllBytes(file.toPath()));
+            final String value = new String(byteArrayOutputStream.toByteArray());
+            assertThat(value, is(expected));
+
         }
-        
-        final Schema schema = builder.build();
-        final PrintWriter printWriter = new PrintWriter(out);
-        
-        schema.print(printWriter);
-        printWriter.flush();
+
     }
-    
 }

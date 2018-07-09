@@ -1,0 +1,34 @@
+
+struct Node {
+   value @0 :Float32 = unset;
+   otherValue @1 :DemoEnum;
+
+   struct Sub {
+      Some @0 :Text = hey;
+
+      struct evenDeeper {
+         last @0 :Exit;
+      }
+   }
+
+   union  {
+
+      group hello_kitty {
+         tiger @2 :Text;
+         bear @3 :Int16;
+         lion @4 :UInt8;
+      }
+
+      group barbies {
+         maria @5 :Text;
+         siglinde @6 :Int16;
+         marietta @7 :UInt8;
+      }
+   }
+
+   enum DemoEnum {
+      alpha @0;
+      beta @1;
+      gamma @2;
+   }
+}

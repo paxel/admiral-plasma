@@ -1,4 +1,4 @@
-package admiral_plasma.pojo_general.definition;
+package admiral_plasma.pojo_general.definition.api;
 
 import java.io.IOException;
 import java.io.Writer;
@@ -7,30 +7,30 @@ import java.util.List;
 import java.util.function.Consumer;
 import java.util.stream.Stream;
 
-public class Schema {
+public class CaptnProtoSchema {
 
-    private final List<CaptnContainer> structs;
-    private final List<CaptnEnum> enums;
+    private final List<CaptnProtoContainer> structs;
+    private final List<CaptnProtoEnum> enums;
 
-    Schema(List<CaptnContainer> structs, List<CaptnEnum> enums) {
+    public CaptnProtoSchema(List<CaptnProtoContainer> structs, List<CaptnProtoEnum> enums) {
         this.structs = structs == null ? new ArrayList<>() : structs;
         this.enums = enums == null ? new ArrayList<>() : enums;
     }
 
-    void print(Writer out) throws IOException {
-        for (CaptnContainer value : structs) {
+    public void print(Writer out) throws IOException {
+        for (CaptnProtoContainer value : structs) {
             value.print(out, 0);
         }
-        for (CaptnEnum value : enums) {
+        for (CaptnProtoEnum value : enums) {
             value.print(out, 0);
         }
     }
 
-    public Stream<CaptnContainer> stream() {
+    public Stream<CaptnProtoContainer> stream() {
         return structs.stream();
     }
 
-    public void forEach(Consumer<? super CaptnContainer> action) {
+    public void forEach(Consumer<? super CaptnProtoContainer> action) {
         structs.forEach(action);
     }
 

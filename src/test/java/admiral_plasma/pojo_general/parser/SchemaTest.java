@@ -1,6 +1,6 @@
 package admiral_plasma.pojo_general.parser;
 
-import admiral_plasma.pojo_general.definition.Schema;
+import admiral_plasma.pojo_general.definition.api.CaptnProtoSchema;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -36,7 +36,7 @@ public class SchemaTest {
             + "  month @1 :UInt8;\n"
             + "  day @2 :UInt8;\n"
             + "}";
-    private Schema from;
+    private CaptnProtoSchema from;
 
     @Ignore
     @Test
