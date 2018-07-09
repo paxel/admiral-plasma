@@ -32,6 +32,7 @@ public class CaptProtoSchemaBuilderTest {
 		File file = new File(classLoader.getResource("example.capn").getFile());
 		final String expected = new String(Files.readAllBytes(file.toPath()));
 		final String value = new String(byteArrayOutputStream.toByteArray());
+		//System.out.println(value);
 		assertThat(value, is(expected));
 
 	}

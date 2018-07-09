@@ -22,9 +22,6 @@ public class TestSchema {
 					final CaptnProtoContainerBuilder deeper = sub.addStruct("evenDeeper");
 					deeper.addValue("last").setType("Exit");
 				}
-			}
-			node.addEnum("DemoEnum").add("alpha").add("beta").add("gamma");
-			{
 				final CaptnProtoContainerBuilder bodyUnion = node.addBodyUnion();
 				{
 					final CaptnProtoContainerBuilder helloKitty = bodyUnion.addGroup("hello_kitty");
@@ -40,6 +37,7 @@ public class TestSchema {
 				}
 
 			}
+			builder.addEnum("DemoEnum").add("alpha").add("beta").add("gamma");
 
 			return builder.build();
 		}

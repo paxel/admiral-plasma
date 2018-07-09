@@ -11,7 +11,7 @@ public class CodeContext {
 
 	}
 
-	public void add(String id, EnumClass enumClass) {
+	public void add(String id, EnumClassGenerator enumClass) {
 		// TODO Auto-generated method stub
 
 	}
@@ -26,7 +26,6 @@ public class CodeContext {
 	}
 
 	public Path getTargetDir() {
-		// TODO Auto-generated method stub
-		return null;
+		return properties.getTargetDir();
 	}
 }

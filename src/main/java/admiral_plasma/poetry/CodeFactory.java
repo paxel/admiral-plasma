@@ -11,7 +11,7 @@ public class CodeFactory {
 	public void creatCode(CaptnProtoSchema schema, CodeProperties properties) throws IOException {
 		CodeContext contex = new CodeContext(properties);
 		for (CaptnProtoEnum cEnum : schema.getEnums()) {
-			EnumClass enumClass = new EnumClass(contex, cEnum);
+			EnumClassGenerator enumClass = new EnumClassGenerator(contex, cEnum);
 			contex.add(cEnum.getId(), enumClass);
 			enumClass.buildJava();
 		}

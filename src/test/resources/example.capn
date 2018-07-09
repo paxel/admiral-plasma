@@ -25,10 +25,10 @@ struct Node {
          marietta @7 :UInt8;
       }
    }
+}
 
-   enum DemoEnum {
-      alpha @0;
-      beta @1;
-      gamma @2;
-   }
+enum DemoEnum {
+   alpha @0;
+   beta @1;
+   gamma @2;
 }

@@ -1,6 +1,7 @@
 package admiral_plasma.poetry;
 
 import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.concurrent.ExecutionException;
 
 import org.junit.Test;
@@ -26,7 +27,7 @@ public class CodeFactoryTest {
 	}
 
 	private void givenProperties() {
-		this.properties = new CodeProperties();
+		this.properties = new CodeProperties().setPackageName("org.afk").setTargetDir(Paths.get("src/generated/java"));
 	}
 
 }
