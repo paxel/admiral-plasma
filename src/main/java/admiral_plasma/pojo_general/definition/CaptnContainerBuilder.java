@@ -15,21 +15,24 @@ import java.util.concurrent.atomic.AtomicInteger;
  *
  * @author axel
  */
-public class CaptnStructBuilder {
+public class CaptnContainerBuilder {
 
+    public static enum ContainerType {
+        STRUCT, GROUP, UNION
+    }
     private final AtomicInteger id = new AtomicInteger();
     private final String name;
 
-    private final CompletableFuture<List<CaptnStruct>> structs = new CompletableFuture<>();
+    private final CompletableFuture<List<CaptnContainer>> structs = new CompletableFuture<>();
     private final CompletableFuture<List<CaptnEnum>> enums = new CompletableFuture<>();
     private final CompletableFuture<List<CaptnValue>> values = new CompletableFuture<>();
 
-    CaptnStructBuilder(String name) {
+    CaptnContainerBuilder(String name, ContainerType type) {
         this.name = name;
     }
 
-    public CaptnStructBuilder addStruct(String name) {
-        final CaptnStructBuilder builder = new CaptnStructBuilder(name);
+    public CaptnContainerBuilder addStruct(String name) {
+        final CaptnContainerBuilder builder = new CaptnContainerBuilder(name, feqw);
         this.structs.thenApply(
                 list -> list.add(builder.build())
         );
@@ -52,12 +55,12 @@ public class CaptnStructBuilder {
         return builder;
     }
 
-    CaptnStruct build() {
+    CaptnContainer build() {
         values.complete(new ArrayList<>());
         structs.complete(new ArrayList<>());
         enums.complete(new ArrayList<>());
         try {
-            return new CaptnStruct(name, values.get(), structs.get(), enums.get());
+            return new CaptnContainer(name, values.get(), structs.get(), enums.get());
         } catch (InterruptedException | ExecutionException ex) {
             throw new RuntimeException(ex);
         }

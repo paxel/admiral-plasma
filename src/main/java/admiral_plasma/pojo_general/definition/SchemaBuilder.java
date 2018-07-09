@@ -15,11 +15,11 @@ import java.util.concurrent.ExecutionException;
  */
 public class SchemaBuilder {
 
-    private final CompletableFuture<List<CaptnStruct>> structs = new CompletableFuture<>();
+    private final CompletableFuture<List<CaptnContainer>> structs = new CompletableFuture<>();
     private final CompletableFuture<List<CaptnEnum>> enums = new CompletableFuture<>();
 
-    public CaptnStructBuilder addStruct(String name) {
-        final CaptnStructBuilder structBuilder = new CaptnStructBuilder(name);
+    public CaptnContainerBuilder addStruct(String name) {
+        final CaptnContainerBuilder structBuilder = new CaptnContainerBuilder(name, feqw);
         this.structs.thenAccept(
                 list -> list.add(structBuilder.build())
         );

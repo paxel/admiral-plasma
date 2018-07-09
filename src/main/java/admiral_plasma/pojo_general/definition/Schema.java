@@ -9,16 +9,16 @@ import java.util.stream.Stream;
 
 public class Schema {
 
-    private final List<CaptnStruct> structs;
+    private final List<CaptnContainer> structs;
     private final List<CaptnEnum> enums;
 
-    Schema(List<CaptnStruct> structs, List<CaptnEnum> enums) {
+    Schema(List<CaptnContainer> structs, List<CaptnEnum> enums) {
         this.structs = structs == null ? new ArrayList<>() : structs;
         this.enums = enums == null ? new ArrayList<>() : enums;
     }
 
     void print(Writer out) throws IOException {
-        for (CaptnStruct value : structs) {
+        for (CaptnContainer value : structs) {
             value.print(out, 0);
         }
         for (CaptnEnum value : enums) {
@@ -26,11 +26,11 @@ public class Schema {
         }
     }
 
-    public Stream<CaptnStruct> stream() {
+    public Stream<CaptnContainer> stream() {
         return structs.stream();
     }
 
-    public void forEach(Consumer<? super CaptnStruct> action) {
+    public void forEach(Consumer<? super CaptnContainer> action) {
         structs.forEach(action);
     }
 

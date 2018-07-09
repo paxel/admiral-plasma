@@ -5,6 +5,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.IsNull.nullValue;
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class SchemaTest {
@@ -17,7 +18,7 @@ public class SchemaTest {
             + "\n"
             + "  email @1 :Text;\n"
             + "  phones @2 :List(PhoneNumber);\n"
-            + "\n" 
+            + "\n"
             + "  struct PhoneNumber {\n"
             + "    number @0 :Text;\n"
             + "    type @1 :Type;\n"
@@ -37,6 +38,7 @@ public class SchemaTest {
             + "}";
     private Schema from;
 
+    @Ignore
     @Test
     public void test() {
 

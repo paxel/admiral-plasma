@@ -21,14 +21,14 @@ public class SchemaBuilderTest {
     public void testSomeMethod() throws IOException, InterruptedException, ExecutionException {
         
         SchemaBuilder builder = new SchemaBuilder();
-        final CaptnStructBuilder node = builder.addStruct("Node");
+        final CaptnContainerBuilder node = builder.addStruct("Node");
         {
             node.addValue("value").setType(BuildinType.FLOAT_32).setDefaultValue("unset");
             node.addValue("otherValue").setType("DemoEnum");
-            final CaptnStructBuilder sub = node.addStruct("Sub");
+            final CaptnContainerBuilder sub = node.addStruct("Sub");
             {
                 sub.addValue("Some").setType(BuildinType.TEXT).setDefaultValue("hey");
-                final CaptnStructBuilder deeper = sub.addStruct("evenDeeper");
+                final CaptnContainerBuilder deeper = sub.addStruct("evenDeeper");
                 {
                     deeper.addValue("last").setType("Exit");
                 }
