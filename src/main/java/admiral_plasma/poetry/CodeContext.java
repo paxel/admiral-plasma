@@ -1,9 +1,14 @@
 package admiral_plasma.poetry;
 
+import java.nio.file.Path;
+
 public class CodeContext {
 
+	private CodeProperties properties;
+
 	public CodeContext(CodeProperties properties) {
-		// TODO Auto-generated constructor stub
+		this.properties = properties;
+
 	}
 
 	public void add(String id, EnumClass enumClass) {
@@ -14,5 +19,14 @@ public class CodeContext {
 	public void add(String id, StructClass structClass) {
 		// TODO Auto-generated method stub
 
+	}
+
+	public String getPackageName() {
+		return properties.getPackageName();
+	}
+
+	public Path getTargetDir() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

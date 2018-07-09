@@ -21,8 +21,20 @@ public class CaptnProtoEnum implements IndentedPrinter {
 		this.parents = parents;
 	}
 
+	public List<String> getEntries() {
+		return entries;
+	}
+
 	public String getId() {
 		return parents + name;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public String getUniqeName() {
+		return (parents + name).replace('.', '_');
 	}
 
 	@Override

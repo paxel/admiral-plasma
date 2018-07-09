@@ -1,12 +1,14 @@
 package admiral_plasma.poetry;
 
+import java.io.IOException;
+
 import admiral_plasma.definition.api.CaptnProtoContainer;
 import admiral_plasma.definition.api.CaptnProtoEnum;
 import admiral_plasma.definition.api.CaptnProtoSchema;
 
 public class CodeFactory {
 
-	public void creatCode(CaptnProtoSchema schema, CodeProperties properties) {
+	public void creatCode(CaptnProtoSchema schema, CodeProperties properties) throws IOException {
 		CodeContext contex = new CodeContext(properties);
 		for (CaptnProtoEnum cEnum : schema.getEnums()) {
 			EnumClass enumClass = new EnumClass(contex, cEnum);
