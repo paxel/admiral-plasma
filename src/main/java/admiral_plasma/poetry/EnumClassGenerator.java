@@ -13,25 +13,24 @@ import admiral_plasma.definition.api.CaptnProtoEnum;
 
 public class EnumClassGenerator {
 
-	private CaptnProtoEnum cEnum;
-	private CodeContext contex;
 
-	public EnumClassGenerator(CodeContext contex, CaptnProtoEnum cEnum) {
-		this.contex = contex;
-		this.cEnum = cEnum;
+
+	public void buildJavaFile(CodeContext context, CaptnProtoEnum captainEnum) throws IOException {
+
+		TypeSpec typeSpec = buildEnum(context, captainEnum);
+		JavaFile javaFile = JavaFile.builder(context.getPackageName(), typeSpec).build();
+
+		javaFile.writeTo(context.getTargetDir());
 	}
 
-	public void buildJava() throws IOException {
-
-		Builder enumBuilder = TypeSpec.enumBuilder(ClassName.get(contex.getPackageName(), cEnum.getUniqeName()))
+	public TypeSpec buildEnum(CodeContext context, CaptnProtoEnum captainEnum) {
+		Builder enumBuilder = TypeSpec.enumBuilder(ClassName.get(context.getPackageName(), captainEnum.getName()))
 				.addModifiers(Modifier.PUBLIC);
-		for (String entry : cEnum.getEntries()) {
+		for (String entry : captainEnum.getEntries()) {
 			enumBuilder.addEnumConstant(entry);
 		}
 		TypeSpec typeSpec = enumBuilder.build();
-		JavaFile javaFile = JavaFile.builder(contex.getPackageName(), typeSpec).build();
-
-		javaFile.writeTo(contex.getTargetDir());
+		return typeSpec;
 	}
 
 }

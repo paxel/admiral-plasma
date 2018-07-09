@@ -14,4 +14,15 @@ public enum BuildinType {
 		return syntax;
 	}
 
+	public static BuildinType findSyntax(String type) {
+		BuildinType[] values = values();
+		for (int i = 0; i < values.length; i++) {
+			if (values[i].syntax.equals(type))
+				return values[i];
+		}
+
+		return null;
+
+	}
+
 }

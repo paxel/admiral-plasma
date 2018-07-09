@@ -18,6 +18,22 @@ public class CaptnProtoValue implements IndentedPrinter {
 		this.defaultValue = defaultValue;
 	}
 
+	public String getName() {
+		return name;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public String getDefaultValue() {
+		return defaultValue;
+	}
+
 	@Override
 	public void print(Writer out, int indent) throws IOException {
 		printIndent(out, indent);

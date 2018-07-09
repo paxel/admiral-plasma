@@ -9,17 +9,17 @@ import admiral_plasma.definition.api.CaptnProtoSchema;
 public class CodeFactory {
 
 	public void creatCode(CaptnProtoSchema schema, CodeProperties properties) throws IOException {
-		CodeContext contex = new CodeContext(properties);
-		for (CaptnProtoEnum cEnum : schema.getEnums()) {
-			EnumClassGenerator enumClass = new EnumClassGenerator(contex, cEnum);
-			contex.add(cEnum.getId(), enumClass);
-			enumClass.buildJava();
+		CodeContext context = new CodeContext(properties);
+		for (CaptnProtoEnum captainEnum : schema.getEnums()) {
+			EnumClassGenerator enumClass = new EnumClassGenerator();
+			context.add(captainEnum.getId(), enumClass);
+			enumClass.buildJavaFile(context, captainEnum);
 		}
 		for (CaptnProtoContainer container : schema.getStructs()) {
 			switch (container.getType()) {
 			case STRUCT:
-				StructClass structClass = new StructClass(contex, container);
-				contex.add(container.getId(), structClass);
+				StructClassGenerator structClass = new StructClassGenerator(context, container);
+				context.add(container.getId(), structClass);
 				structClass.buildJava();
 				break;
 
