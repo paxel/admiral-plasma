@@ -1,7 +1,8 @@
-package admiral_plasma.pojo_general.definition.builder;
+package admiral_plasma.definition.builder;
 
-import admiral_plasma.pojo_general.definition.builder.CaptnProtoValueBuilder;
-import admiral_plasma.pojo_general.definition.api.CaptnProtoValue;
+import admiral_plasma.definition.api.CaptnProtoValue;
+import admiral_plasma.definition.builder.CaptnProtoValueBuilder;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;

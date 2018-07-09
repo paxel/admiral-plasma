@@ -1,4 +1,4 @@
-package admiral_plasma.pojo_general.definition.api;
+package admiral_plasma.definition.api;
 
 public enum ContainerType {
     STRUCT("struct"), GROUP("group"), UNION("union");

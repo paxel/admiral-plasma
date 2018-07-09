@@ -1,5 +1,5 @@
 
-package admiral_plasma.pojo_general.definition.api;
+package admiral_plasma.definition.api;
 
 import java.io.IOException;
 import java.io.Writer;

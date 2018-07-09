@@ -1,9 +1,10 @@
-package admiral_plasma.pojo_general.definition;
+package admiral_plasma.definition;
 
-import admiral_plasma.pojo_general.definition.api.BuildinType;
-import admiral_plasma.pojo_general.definition.builder.CapnProtoSchemaBuilder;
-import admiral_plasma.pojo_general.definition.builder.CaptnProtoContainerBuilder;
-import admiral_plasma.pojo_general.definition.api.CaptnProtoSchema;
+import admiral_plasma.definition.api.BuildinType;
+import admiral_plasma.definition.api.CaptnProtoSchema;
+import admiral_plasma.definition.builder.CapnProtoSchemaBuilder;
+import admiral_plasma.definition.builder.CaptnProtoContainerBuilder;
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;

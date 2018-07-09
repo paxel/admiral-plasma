@@ -1,7 +1,7 @@
-package admiral_plasma.pojo_general.definition.builder;
+package admiral_plasma.definition.builder;
 
-import admiral_plasma.pojo_general.definition.api.BuildinType;
-import admiral_plasma.pojo_general.definition.api.CaptnProtoValue;
+import admiral_plasma.definition.api.BuildinType;
+import admiral_plasma.definition.api.CaptnProtoValue;
 
 public class CaptnProtoValueBuilder implements Builder<CaptnProtoValue> {
 

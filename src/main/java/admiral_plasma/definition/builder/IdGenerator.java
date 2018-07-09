@@ -1,4 +1,4 @@
-package admiral_plasma.pojo_general.definition.builder;
+package admiral_plasma.definition.builder;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
