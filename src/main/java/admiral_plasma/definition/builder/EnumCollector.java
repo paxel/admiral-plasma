@@ -1,12 +1,11 @@
 package admiral_plasma.definition.builder;
 
-import admiral_plasma.definition.api.CaptnProtoEnum;
-import admiral_plasma.definition.builder.CaptnProtoEnumBuilder;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
+
+import admiral_plasma.definition.api.CaptnProtoEnum;
 
 /**
  *
@@ -30,15 +29,16 @@ public class EnumCollector implements Builder<List<CaptnProtoEnum>> {
 		return builder;
 	}
 
+	@Override
+	public List<CaptnProtoEnum> build() throws InterruptedException, ExecutionException {
+		first.complete(new ArrayList<>());
+		return getLast().get();
+	}
+
 	private CompletableFuture<List<CaptnProtoEnum>> getLast() {
 		if (last == null) {
 			return first;
 		}
 		return last;
-	}
-
-	public List<CaptnProtoEnum> build() throws InterruptedException, ExecutionException {
-		first.complete(new ArrayList<>());
-		return getLast().get();
 	}
 }

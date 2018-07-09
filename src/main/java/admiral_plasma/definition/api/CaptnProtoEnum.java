@@ -11,14 +11,19 @@ public class CaptnProtoEnum implements IndentedPrinter {
 
 	private final List<String> entries;
 
+	private final String name;
+
+	private final Parents parents;
+
 	public CaptnProtoEnum(String name, List<String> entries, Parents parents) {
 		this.entries = entries;
 		this.name = name;
 		this.parents = parents;
 	}
 
-	private final String name;
-	private final Parents parents;
+	public String getId() {
+		return parents + name;
+	}
 
 	@Override
 	public void print(Writer out, int indent) throws IOException {
@@ -32,10 +37,6 @@ public class CaptnProtoEnum implements IndentedPrinter {
 		}
 		printIndent(out, indent);
 		out.append("}\n");
-	}
-
-	public String getId() {
-		return parents + name;
 	}
 
 }

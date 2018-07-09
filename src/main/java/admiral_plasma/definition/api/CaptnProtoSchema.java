@@ -15,6 +15,14 @@ public class CaptnProtoSchema {
 		this.enums = enums == null ? new ArrayList<>() : enums;
 	}
 
+	public List<CaptnProtoEnum> getEnums() {
+		return enums;
+	}
+
+	public List<CaptnProtoContainer> getStructs() {
+		return structs;
+	}
+
 	public void print(Writer out) throws IOException {
 		for (CaptnProtoContainer value : structs) {
 			value.print(out, 0);
@@ -22,14 +30,6 @@ public class CaptnProtoSchema {
 		for (CaptnProtoEnum value : enums) {
 			value.print(out, 0);
 		}
-	}
-
-	public List<CaptnProtoContainer> getStructs() {
-		return structs;
-	}
-
-	public List<CaptnProtoEnum> getEnums() {
-		return enums;
 	}
 
 }

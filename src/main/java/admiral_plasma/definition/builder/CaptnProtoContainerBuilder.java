@@ -30,28 +30,28 @@ public class CaptnProtoContainerBuilder implements Builder<CaptnProtoContainer> 
 		this.enums = new EnumCollector(newParent);
 	}
 
-	public CaptnProtoValueBuilder addValue(String name) {
-		return values.add(name, idGenerator);
-	}
-
-	public CaptnProtoContainerBuilder addStruct(String name) {
-		return containers.addStruct(name);
-	}
-
-	public CaptnProtoContainerBuilder addGroup(String name) {
-		return containers.addGroup(name, idGenerator);
-	}
-
-	public CaptnProtoContainerBuilder addUnion(String name) {
-		return containers.addUnion(name, idGenerator);
-	}
-
 	public CaptnProtoContainerBuilder addBodyUnion() {
 		return containers.addUnion("", idGenerator);
 	}
 
 	public CaptnProtoEnumBuilder addEnum(String name) {
 		return enums.add(name);
+	}
+
+	public CaptnProtoContainerBuilder addGroup(String name) {
+		return containers.addGroup(name, idGenerator);
+	}
+
+	public CaptnProtoContainerBuilder addStruct(String name) {
+		return containers.addStruct(name);
+	}
+
+	public CaptnProtoContainerBuilder addUnion(String name) {
+		return containers.addUnion(name, idGenerator);
+	}
+
+	public CaptnProtoValueBuilder addValue(String name) {
+		return values.add(name, idGenerator);
 	}
 
 	@Override

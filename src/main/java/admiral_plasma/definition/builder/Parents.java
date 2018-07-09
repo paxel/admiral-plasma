@@ -8,13 +8,13 @@ public class Parents {
 
 	private final List<String> parents;
 
+	public Parents() {
+		parents = new ArrayList<>();
+	}
+
 	private Parents(List<String> parents) {
 		super();
 		this.parents = parents;
-	}
-
-	public Parents() {
-		parents = new ArrayList<>();
 	}
 
 	public Parents add(String name) {

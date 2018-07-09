@@ -9,12 +9,12 @@ public class CapnProtoSchemaBuilder implements Builder<CaptnProtoSchema> {
 	private final ContainerCollector containers = new ContainerCollector(new Parents());
 	private final EnumCollector enums = new EnumCollector(new Parents());
 
-	public CaptnProtoContainerBuilder addStruct(String name) {
-		return containers.addStruct(name);
-	}
-
 	public CaptnProtoEnumBuilder addEnum(String name) {
 		return enums.add(name);
+	}
+
+	public CaptnProtoContainerBuilder addStruct(String name) {
+		return containers.addStruct(name);
 	}
 
 	@Override

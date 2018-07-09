@@ -22,18 +22,18 @@ public class ContainerCollector implements Builder<List<CaptnProtoContainer>> {
 		this.parents = parents;
 	}
 
-	public CaptnProtoContainerBuilder addStruct(String name) {
-		final CaptnProtoContainerBuilder builder = new CaptnProtoContainerBuilder(name, ContainerType.STRUCT,
-				new IdGenerator(), parents);
+	public CaptnProtoContainerBuilder addGroup(String name, IdGenerator idGenerator) {
+		final CaptnProtoContainerBuilder builder = new CaptnProtoContainerBuilder(name, ContainerType.GROUP,
+				idGenerator, parents);
 		synchronized (builder) {
 			this.last = getLast().thenApply(new ChainBuilder<>(builder)::addBuild);
 		}
 		return builder;
 	}
 
-	public CaptnProtoContainerBuilder addGroup(String name, IdGenerator idGenerator) {
-		final CaptnProtoContainerBuilder builder = new CaptnProtoContainerBuilder(name, ContainerType.GROUP,
-				idGenerator, parents);
+	public CaptnProtoContainerBuilder addStruct(String name) {
+		final CaptnProtoContainerBuilder builder = new CaptnProtoContainerBuilder(name, ContainerType.STRUCT,
+				new IdGenerator(), parents);
 		synchronized (builder) {
 			this.last = getLast().thenApply(new ChainBuilder<>(builder)::addBuild);
 		}
@@ -49,16 +49,16 @@ public class ContainerCollector implements Builder<List<CaptnProtoContainer>> {
 		return builder;
 	}
 
+	@Override
+	public List<CaptnProtoContainer> build() throws InterruptedException, ExecutionException {
+		first.complete(new ArrayList<>());
+		return getLast().get();
+	}
+
 	private CompletableFuture<List<CaptnProtoContainer>> getLast() {
 		if (last == null) {
 			return first;
 		}
 		return last;
-	}
-
-	@Override
-	public List<CaptnProtoContainer> build() throws InterruptedException, ExecutionException {
-		first.complete(new ArrayList<>());
-		return getLast().get();
 	}
 }
