@@ -1,4 +1,4 @@
-package admiral_plasma.poetry;
+package admiral_plasma.poetry.api;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -8,7 +8,12 @@ import java.util.Map;
 import com.squareup.javapoet.ClassName;
 
 import admiral_plasma.definition.api.BuildinType;
+import admiral_plasma.definition.api.CaptnProtoContainer;
+import admiral_plasma.definition.api.CaptnProtoEnum;
+import admiral_plasma.definition.api.CaptnProtoSchema;
 import admiral_plasma.definition.api.CaptnProtoValue;
+import admiral_plasma.poetry.java.simple.SimpleClassGenerator;
+import admiral_plasma.poetry.java.simple.SimpleStructGenerator;
 import admiral_plasma.poetry.support.Blob;
 import admiral_plasma.poetry.support.Uint16;
 import admiral_plasma.poetry.support.Uint32;
@@ -25,16 +30,6 @@ public class CodeContext {
 
 		// future feature: define Classes that should be used for types.
 		this.override = new HashMap<>();
-	}
-
-	public void add(String id, EnumClassGenerator enumClass) {
-		// TODO Auto-generated method stub
-
-	}
-
-	public void add(String id, StructClassGenerator structClass) {
-		// TODO Auto-generated method stub
-
 	}
 
 	public String getPackageName() {
@@ -88,4 +83,25 @@ public class CodeContext {
 		return ClassName.bestGuess(entry.getType());
 
 	}
+
+	public FileGenerator newFileGenerator(CodeContext context) {
+		return properties.getFileGeneratorFactory().create(context);
+	}
+
+	public StructGenerator newStructGenerator(CodeContext context, CaptnProtoContainer captainContainer) {
+		return properties.getStructGeneratorFactory().create(context, captainContainer);
+	}
+
+	public EnumGenerator newEnumGenerator(CodeContext context, CaptnProtoEnum captainEnum) {
+		return properties.getEnumGeneratorFactory().create(context, captainEnum);
+	}
+
+	public GroupGenerator newGroupGenerator(CodeContext context, CaptnProtoContainer captainContainer) {
+		return properties.getGroupGeneratorFactory().create(context, captainContainer);
+	}
+
+	public UnionGenerator newUnionGenerator(CodeContext context, CaptnProtoContainer captainContainer) {
+		return properties.getUnionGeneratorFactory().create(context, captainContainer);
+	}
+
 }

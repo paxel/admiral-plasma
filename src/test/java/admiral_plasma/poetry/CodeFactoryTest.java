@@ -8,6 +8,13 @@ import org.junit.Test;
 
 import admiral_plasma.definition.TestSchema;
 import admiral_plasma.definition.api.CaptnProtoSchema;
+import admiral_plasma.poetry.api.CodeFactory;
+import admiral_plasma.poetry.api.CodeProperties;
+import admiral_plasma.poetry.java.simple.SimpleClassGenerator;
+import admiral_plasma.poetry.java.simple.SimpleEnumGenerator;
+import admiral_plasma.poetry.java.simple.SimpleGroupGenerator;
+import admiral_plasma.poetry.java.simple.SimpleStructGenerator;
+import admiral_plasma.poetry.java.simple.SimpleUnionGenerator;
 
 public class CodeFactoryTest {
 
@@ -27,7 +34,12 @@ public class CodeFactoryTest {
 	}
 
 	private void givenProperties() {
-		this.properties = new CodeProperties().setPackageName("org.afk").setTargetDir(Paths.get("src/generated/java"));
+		this.properties = new CodeProperties().setPackageName("org.afk").setTargetDir(Paths.get("src/generated/java"))
+				.setFileGeneratorFactory(SimpleClassGenerator::new)
+				.setStructGeneratorFactory(SimpleStructGenerator::new)
+				.setGroupGeneratorFactory(SimpleGroupGenerator::new)
+				.setUnionGeneratorFactory(SimpleUnionGenerator::new)
+				.setEnumGeneratorFactory(SimpleEnumGenerator::new);
 	}
 
 }
