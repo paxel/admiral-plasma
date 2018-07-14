@@ -25,8 +25,8 @@ public class SimpleEnumGenerator implements EnumGenerator {
 	public TypeSpec generate() {
 		Builder enumBuilder = TypeSpec.enumBuilder(ClassName.get(context.getPackageName(), captainEnum.getName()))
 				.addModifiers(Modifier.PUBLIC);
-		for (String entry : captainEnum.getEntries()) {
-			enumBuilder.addEnumConstant(entry);
+		for (String name : captainEnum.getEntries()) {
+			enumBuilder.addEnumConstant(JavaNames.toConstantName(name));
 		}
 		TypeSpec typeSpec = enumBuilder.build();
 		return typeSpec;

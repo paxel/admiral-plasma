@@ -1,9 +1,9 @@
 package org.afk;
 
 public enum DemoEnum {
-  alpha,
+  ALPHA,
 
-  beta,
+  BETA,
 
-  gamma
+  GAMMA
 }

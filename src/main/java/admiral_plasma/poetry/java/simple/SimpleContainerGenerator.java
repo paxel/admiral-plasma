@@ -33,7 +33,7 @@ public class SimpleContainerGenerator implements ContainerGenerator {
 			Modifier... modifiers) {
 		this.context = context;
 		this.captainContainer = captainContainer;
-		this.name = name;
+		this.name = name = JavaNames.toClassName(name);
 		this.className = ClassName.get(context.getPackageName(), name);
 		this.classBuilder = TypeSpec.classBuilder(name).addModifiers(Modifier.PUBLIC);
 		this.constructor = MethodSpec.constructorBuilder().addModifiers(modifiers);
@@ -63,14 +63,15 @@ public class SimpleContainerGenerator implements ContainerGenerator {
 
 	}
 
-	private void addMember(ClassName className, String name) {
+	private void addMember(ClassName className, String originalName) {
+		String name = JavaNames.toVariableName(originalName);
 		FieldSpec spec = FieldSpec.builder(className, name, Modifier.PRIVATE, Modifier.FINAL).build();
 
 		classBuilder.addField(spec);
 		constructor.addParameter(className, name).addStatement("this.$N = $N", name, name);
 
-		MethodSpec.Builder getter = MethodSpec.methodBuilder("get_" + name).addModifiers(Modifier.PUBLIC)
-				.returns(className).addStatement("return this.$N", name);
+		MethodSpec.Builder getter = MethodSpec.methodBuilder("get" + JavaNames.toClassName(name))
+				.addModifiers(Modifier.PUBLIC).returns(className).addStatement("return this.$N", name);
 		classBuilder.addMethod(getter.build());
 	}
 

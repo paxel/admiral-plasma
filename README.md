@@ -83,11 +83,11 @@ creates
 package org.afk;
 
 public enum DemoEnum {
-  alpha,
+  ALPHA,
 
-  beta,
+  BETA,
 
-  gamma
+  GAMMA
 }
 ```
 
@@ -107,134 +107,135 @@ public class Node {
 
   private final DemoEnum otherValue;
 
-  private final org.afk.Sub Sub;
+  private final org.afk.Sub sub;
 
-  private final org.afk.Union Union;
+  private final org.afk.Union union;
 
-  public Node(Float value, DemoEnum otherValue, org.afk.Sub Sub, org.afk.Union Union) {
+  public Node(Float value, DemoEnum otherValue, org.afk.Sub sub, org.afk.Union union) {
     this.value = value;
     this.otherValue = otherValue;
-    this.Sub = Sub;
-    this.Union = Union;
+    this.sub = sub;
+    this.union = union;
   }
 
-  public Float get_value() {
+  public Float getValue() {
     return this.value;
   }
 
-  public DemoEnum get_otherValue() {
+  public DemoEnum getOtherValue() {
     return this.otherValue;
   }
 
-  public org.afk.Sub get_Sub() {
-    return this.Sub;
+  public org.afk.Sub getSub() {
+    return this.sub;
   }
 
-  public org.afk.Union get_Union() {
-    return this.Union;
+  public org.afk.Union getUnion() {
+    return this.union;
   }
 
   public static class Sub {
-    private final String Some;
+    private final String some;
 
-    private final org.afk.evenDeeper evenDeeper;
+    private final org.afk.EvenDeeper evenDeeper;
 
-    public Sub(String Some, org.afk.evenDeeper evenDeeper) {
-      this.Some = Some;
+    public Sub(String some, org.afk.EvenDeeper evenDeeper) {
+      this.some = some;
       this.evenDeeper = evenDeeper;
     }
 
-    public String get_Some() {
-      return this.Some;
+    public String getSome() {
+      return this.some;
     }
 
-    public org.afk.evenDeeper get_evenDeeper() {
+    public org.afk.EvenDeeper getEvenDeeper() {
       return this.evenDeeper;
     }
 
-    public static class evenDeeper {
+    public static class EvenDeeper {
       private final Exit last;
 
-      public evenDeeper(Exit last) {
+      public EvenDeeper(Exit last) {
         this.last = last;
       }
 
-      public Exit get_last() {
+      public Exit getLast() {
         return this.last;
       }
     }
   }
 
   public class Union {
-    private final org.afk.hello_kittyGroup hello_kittyGroup;
+    private final org.afk.HelloKittyGroup helloKittyGroup;
 
-    private final org.afk.barbiesGroup barbiesGroup;
+    private final org.afk.BarbiesGroup barbiesGroup;
 
-    public static Union(org.afk.hello_kittyGroup hello_kittyGroup,
-        org.afk.barbiesGroup barbiesGroup) {
-      this.hello_kittyGroup = hello_kittyGroup;
+    public static Union(org.afk.HelloKittyGroup helloKittyGroup,
+        org.afk.BarbiesGroup barbiesGroup) {
+      this.helloKittyGroup = helloKittyGroup;
       this.barbiesGroup = barbiesGroup;
     }
 
-    public org.afk.hello_kittyGroup get_hello_kittyGroup() {
-      return this.hello_kittyGroup;
+    public org.afk.HelloKittyGroup getHelloKittyGroup() {
+      return this.helloKittyGroup;
     }
 
-    public org.afk.barbiesGroup get_barbiesGroup() {
+    public org.afk.BarbiesGroup getBarbiesGroup() {
       return this.barbiesGroup;
     }
 
-    public class hello_kittyGroup {
+    public class HelloKittyGroup {
       private final String tiger;
 
       private final Short bear;
 
       private final Uint8 lion;
 
-      public static hello_kittyGroup(String tiger, Short bear, Uint8 lion) {
+      public static HelloKittyGroup(String tiger, Short bear, Uint8 lion) {
         this.tiger = tiger;
         this.bear = bear;
         this.lion = lion;
       }
 
-      public String get_tiger() {
+      public String getTiger() {
         return this.tiger;
       }
 
-      public Short get_bear() {
+      public Short getBear() {
         return this.bear;
       }
 
-      public Uint8 get_lion() {
+      public Uint8 getLion() {
         return this.lion;
       }
     }
 
-    public class barbiesGroup {
+    public class BarbiesGroup {
       private final String maria;
 
       private final Short siglinde;
 
       private final Uint8 marietta;
 
-      public static barbiesGroup(String maria, Short siglinde, Uint8 marietta) {
+      public static BarbiesGroup(String maria, Short siglinde, Uint8 marietta) {
         this.maria = maria;
         this.siglinde = siglinde;
         this.marietta = marietta;
       }
 
-      public String get_maria() {
+      public String getMaria() {
         return this.maria;
       }
 
-      public Short get_siglinde() {
+      public Short getSiglinde() {
         return this.siglinde;
       }
 
-      public Uint8 get_marietta() {
+      public Uint8 getMarietta() {
         return this.marietta;
       }
     }
   }
 }
+
 ´´´
