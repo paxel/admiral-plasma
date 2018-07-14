@@ -4,14 +4,14 @@ import java.io.IOException;
 
 import com.squareup.javapoet.ClassName;
 
-import admiral_plasma.definition.api.CaptnProtoEnum;
 import admiral_plasma.definition.api.CaptnProtoValue;
+import admiral_plasma.poetry.java.simple.ClassTopology;
 
 public interface ContainerGenerator {
 
 	<T> T generate() throws IOException;
 
-	void addEnum(CaptnProtoEnum captainEnum) throws IOException;
+	void addEnum(EnumGenerator enumGenerator) throws IOException;
 
 	void addUnion(UnionGenerator captainContainer) throws IOException;
 
@@ -25,4 +25,6 @@ public interface ContainerGenerator {
 
 	ClassName getClassName();
 
+	ClassTopology getClassTopology();
+	
 }

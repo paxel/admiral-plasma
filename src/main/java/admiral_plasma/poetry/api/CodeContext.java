@@ -12,6 +12,7 @@ import admiral_plasma.definition.api.CaptnProtoContainer;
 import admiral_plasma.definition.api.CaptnProtoEnum;
 import admiral_plasma.definition.api.CaptnProtoSchema;
 import admiral_plasma.definition.api.CaptnProtoValue;
+import admiral_plasma.poetry.java.simple.ClassTopology;
 import admiral_plasma.poetry.java.simple.SimpleClassGenerator;
 import admiral_plasma.poetry.java.simple.SimpleStructGenerator;
 import admiral_plasma.poetry.support.Blob;
@@ -88,20 +89,24 @@ public class CodeContext {
 		return properties.getFileGeneratorFactory().create(context);
 	}
 
-	public StructGenerator newStructGenerator(CodeContext context, CaptnProtoContainer captainContainer) {
-		return properties.getStructGeneratorFactory().create(context, captainContainer);
+	public StructGenerator newStructGenerator(CodeContext context, CaptnProtoContainer captainContainer,
+			ClassTopology parentTopology) {
+		return properties.getStructGeneratorFactory().create(context, captainContainer, parentTopology);
 	}
 
-	public EnumGenerator newEnumGenerator(CodeContext context, CaptnProtoEnum captainEnum) {
-		return properties.getEnumGeneratorFactory().create(context, captainEnum);
+	public EnumGenerator newEnumGenerator(CodeContext context, CaptnProtoEnum captainEnum,
+			ClassTopology parentTopology) {
+		return properties.getEnumGeneratorFactory().create(context, captainEnum, parentTopology);
 	}
 
-	public GroupGenerator newGroupGenerator(CodeContext context, CaptnProtoContainer captainContainer) {
-		return properties.getGroupGeneratorFactory().create(context, captainContainer);
+	public GroupGenerator newGroupGenerator(CodeContext context, CaptnProtoContainer captainContainer,
+			ClassTopology parentTopology) {
+		return properties.getGroupGeneratorFactory().create(context, captainContainer, parentTopology);
 	}
 
-	public UnionGenerator newUnionGenerator(CodeContext context, CaptnProtoContainer captainContainer) {
-		return properties.getUnionGeneratorFactory().create(context, captainContainer);
+	public UnionGenerator newUnionGenerator(CodeContext context, CaptnProtoContainer captainContainer,
+			ClassTopology parentTopology) {
+		return properties.getUnionGeneratorFactory().create(context, captainContainer, parentTopology);
 	}
 
 }

@@ -11,10 +11,10 @@ import com.squareup.javapoet.TypeSpec;
 import com.squareup.javapoet.TypeSpec.Builder;
 
 import admiral_plasma.definition.api.CaptnProtoContainer;
-import admiral_plasma.definition.api.CaptnProtoEnum;
 import admiral_plasma.definition.api.CaptnProtoValue;
 import admiral_plasma.poetry.api.CodeContext;
 import admiral_plasma.poetry.api.ContainerGenerator;
+import admiral_plasma.poetry.api.EnumGenerator;
 import admiral_plasma.poetry.api.GroupGenerator;
 import admiral_plasma.poetry.api.StructGenerator;
 import admiral_plasma.poetry.api.UnionGenerator;
@@ -27,15 +27,16 @@ public class SimpleContainerGenerator implements ContainerGenerator {
 	protected CaptnProtoContainer captainContainer;
 	protected final Later<IOException> later = new Later<>();
 	private ClassName className;
-	private String name;
+	private ClassTopology topology;
 
-	public SimpleContainerGenerator(CodeContext context, CaptnProtoContainer captainContainer, String name,
+	public SimpleContainerGenerator(CodeContext context, CaptnProtoContainer captainContainer, ClassTopology myTopology,
 			Modifier... modifiers) {
 		this.context = context;
 		this.captainContainer = captainContainer;
-		this.name = name = JavaNames.toClassName(name);
-		this.className = ClassName.get(context.getPackageName(), name);
-		this.classBuilder = TypeSpec.classBuilder(name).addModifiers(Modifier.PUBLIC);
+		this.topology = myTopology;
+		this.className = ClassName.get(context.getPackageName(), myTopology.getRootName(), myTopology.getStructure());
+
+		this.classBuilder = TypeSpec.classBuilder(myTopology.getClassName()).addModifiers(Modifier.PUBLIC);
 		this.constructor = MethodSpec.constructorBuilder().addModifiers(modifiers);
 	}
 
@@ -46,12 +47,12 @@ public class SimpleContainerGenerator implements ContainerGenerator {
 
 	@Override
 	public String getName() {
-		return name;
+		return topology.getClassName();
 	}
 
 	@Override
-	public void addEnum(CaptnProtoEnum captainEnum) throws IOException {
-		classBuilder.addType(context.newEnumGenerator(context, captainEnum).generate());
+	public void addEnum(EnumGenerator enumGenerator) throws IOException {
+		later.run(() -> classBuilder.addType(enumGenerator.generate()));
 	}
 
 	@Override
@@ -104,6 +105,11 @@ public class SimpleContainerGenerator implements ContainerGenerator {
 		later.runNow();
 		return classBuilder.build();
 
+	}
+
+	@Override
+	public ClassTopology getClassTopology() {
+		return topology;
 	}
 
 }

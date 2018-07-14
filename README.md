@@ -31,8 +31,6 @@ lets see how far I come :D
 
 ##Current Status:
 
-* The generated innerclasses are not correctly named
-* the getter and class syntax is not java style
 * no factory classes are generated
 * no serialization
 * no deserialization
@@ -107,11 +105,11 @@ public class Node {
 
   private final DemoEnum otherValue;
 
-  private final org.afk.Sub sub;
+  private final Sub sub;
 
-  private final org.afk.Union union;
+  private final Union union;
 
-  public Node(Float value, DemoEnum otherValue, org.afk.Sub sub, org.afk.Union union) {
+  Node(Float value, DemoEnum otherValue, Sub sub, Union union) {
     this.value = value;
     this.otherValue = otherValue;
     this.sub = sub;
@@ -126,20 +124,20 @@ public class Node {
     return this.otherValue;
   }
 
-  public org.afk.Sub getSub() {
+  public Sub getSub() {
     return this.sub;
   }
 
-  public org.afk.Union getUnion() {
+  public Union getUnion() {
     return this.union;
   }
 
   public static class Sub {
     private final String some;
 
-    private final org.afk.EvenDeeper evenDeeper;
+    private final EvenDeeper evenDeeper;
 
-    public Sub(String some, org.afk.EvenDeeper evenDeeper) {
+    Sub(String some, EvenDeeper evenDeeper) {
       this.some = some;
       this.evenDeeper = evenDeeper;
     }
@@ -148,14 +146,14 @@ public class Node {
       return this.some;
     }
 
-    public org.afk.EvenDeeper getEvenDeeper() {
+    public EvenDeeper getEvenDeeper() {
       return this.evenDeeper;
     }
 
     public static class EvenDeeper {
       private final Exit last;
 
-      public EvenDeeper(Exit last) {
+      EvenDeeper(Exit last) {
         this.last = last;
       }
 
@@ -166,21 +164,20 @@ public class Node {
   }
 
   public class Union {
-    private final org.afk.HelloKittyGroup helloKittyGroup;
+    private final HelloKittyGroup helloKittyGroup;
 
-    private final org.afk.BarbiesGroup barbiesGroup;
+    private final BarbiesGroup barbiesGroup;
 
-    public static Union(org.afk.HelloKittyGroup helloKittyGroup,
-        org.afk.BarbiesGroup barbiesGroup) {
+    static Union(HelloKittyGroup helloKittyGroup, BarbiesGroup barbiesGroup) {
       this.helloKittyGroup = helloKittyGroup;
       this.barbiesGroup = barbiesGroup;
     }
 
-    public org.afk.HelloKittyGroup getHelloKittyGroup() {
+    public HelloKittyGroup getHelloKittyGroup() {
       return this.helloKittyGroup;
     }
 
-    public org.afk.BarbiesGroup getBarbiesGroup() {
+    public BarbiesGroup getBarbiesGroup() {
       return this.barbiesGroup;
     }
 
@@ -191,7 +188,7 @@ public class Node {
 
       private final Uint8 lion;
 
-      public static HelloKittyGroup(String tiger, Short bear, Uint8 lion) {
+      static HelloKittyGroup(String tiger, Short bear, Uint8 lion) {
         this.tiger = tiger;
         this.bear = bear;
         this.lion = lion;
@@ -217,7 +214,7 @@ public class Node {
 
       private final Uint8 marietta;
 
-      public static BarbiesGroup(String maria, Short siglinde, Uint8 marietta) {
+      static BarbiesGroup(String maria, Short siglinde, Uint8 marietta) {
         this.maria = maria;
         this.siglinde = siglinde;
         this.marietta = marietta;
@@ -237,5 +234,4 @@ public class Node {
     }
   }
 }
-
 ´´´

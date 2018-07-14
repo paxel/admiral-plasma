@@ -14,16 +14,19 @@ public class SimpleEnumGenerator implements EnumGenerator {
 
 	private final CodeContext context;
 	private final CaptnProtoEnum captainEnum;
+	private ClassTopology topology;
 
-	public SimpleEnumGenerator(CodeContext contex, CaptnProtoEnum container) {
+	public SimpleEnumGenerator(CodeContext contex, CaptnProtoEnum captainEnum, ClassTopology parentTopology) {
 		super();
 		this.context = contex;
-		this.captainEnum = container;
+		this.captainEnum = captainEnum;
+		this.topology = parentTopology.add(captainEnum.getName());
 	}
 
 	@SuppressWarnings("unchecked")
 	public TypeSpec generate() {
-		Builder enumBuilder = TypeSpec.enumBuilder(ClassName.get(context.getPackageName(), captainEnum.getName()))
+		Builder enumBuilder = TypeSpec
+				.enumBuilder(ClassName.get(context.getPackageName(), topology.getRootName(), topology.getStructure()))
 				.addModifiers(Modifier.PUBLIC);
 		for (String name : captainEnum.getEntries()) {
 			enumBuilder.addEnumConstant(JavaNames.toConstantName(name));
