@@ -9,22 +9,22 @@ import admiral_plasma.poetry.java.simple.ClassTopology;
 
 public interface ContainerGenerator {
 
-	<T> T generate() throws IOException;
+    <T> T generate() throws IOException;
 
-	void addEnum(EnumGenerator enumGenerator) throws IOException;
+    void addEnum(EnumGenerator enumGenerator) throws IOException;
 
-	void addUnion(UnionGenerator captainContainer) throws IOException;
+    void addUnion(UnionGenerator captainContainer) throws IOException;
 
-	void addStruct(StructGenerator childGenerator) throws IOException;
+    void addStruct(StructGenerator childGenerator) throws IOException;
 
-	void addGroup(GroupGenerator captainContainer) throws IOException;
+    void addGroup(GroupGenerator captainContainer) throws IOException;
 
-	void addValue(CaptnProtoValue captainValue);
+    void addValue(CaptnProtoValue captainValue);
 
-	String getName();
+    String getName();
 
-	ClassName getClassName();
+    ClassName getClassName();
 
-	ClassTopology getClassTopology();
-	
+    ClassTopology getClassTopology();
+
 }

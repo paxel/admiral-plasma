@@ -10,8 +10,8 @@ import admiral_plasma.poetry.api.UnionGenerator;
 
 public class SimpleUnionGenerator extends SimpleContainerGenerator implements UnionGenerator {
 
-	public SimpleUnionGenerator(CodeContext context, CaptnProtoContainer captainContainer, ClassTopology nestedClass) {
-		super(context, captainContainer, nestedClass.add(captainContainer.getName() + "Union"), Modifier.STATIC);
-	}
+    public SimpleUnionGenerator(CodeContext context, CaptnProtoContainer captainContainer, ClassTopology nestedClass) {
+        super(context, captainContainer, nestedClass.add(captainContainer.getName() + "Union"), Modifier.STATIC);
+    }
 
 }

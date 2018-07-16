@@ -18,28 +18,28 @@ import admiral_plasma.poetry.java.simple.SimpleUnionGenerator;
 
 public class CodeFactoryTest {
 
-	private CaptnProtoSchema schema;
-	private CodeProperties properties;
+    private CaptnProtoSchema schema;
+    private CodeProperties properties;
 
-	@Test
-	public void test() throws IOException, InterruptedException, ExecutionException {
-		givenSchema();
-		givenProperties();
-		new CodeFactory().creatCode(schema, properties);
-	}
+    @Test
+    public void test() throws IOException, InterruptedException, ExecutionException {
+        givenSchema();
+        givenProperties();
+        new CodeFactory().creatCode(schema, properties);
+    }
 
-	private void givenSchema() throws InterruptedException, ExecutionException {
-		this.schema = TestSchema.get();
+    private void givenSchema() throws InterruptedException, ExecutionException {
+        this.schema = TestSchema.get();
 
-	}
+    }
 
-	private void givenProperties() {
-		this.properties = new CodeProperties().setPackageName("org.afk").setTargetDir(Paths.get("src/generated/java"))
-				.setFileGeneratorFactory(SimpleClassGenerator::new)
-				.setStructGeneratorFactory(SimpleStructGenerator::new)
-				.setGroupGeneratorFactory(SimpleGroupGenerator::new)
-				.setUnionGeneratorFactory(SimpleUnionGenerator::new)
-				.setEnumGeneratorFactory(SimpleEnumGenerator::new);
-	}
+    private void givenProperties() {
+        this.properties = new CodeProperties().setPackageName("org.afk").setTargetDir(Paths.get("src/generated/java"))
+                .setFileGeneratorFactory(SimpleClassGenerator::new)
+                .setStructGeneratorFactory(SimpleStructGenerator::new)
+                .setGroupGeneratorFactory(SimpleGroupGenerator::new)
+                .setUnionGeneratorFactory(SimpleUnionGenerator::new)
+                .setEnumGeneratorFactory(SimpleEnumGenerator::new);
+    }
 
 }

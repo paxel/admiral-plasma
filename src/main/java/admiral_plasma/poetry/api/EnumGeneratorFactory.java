@@ -6,6 +6,6 @@ import admiral_plasma.poetry.java.simple.ClassTopology;
 @FunctionalInterface
 public interface EnumGeneratorFactory {
 
-	EnumGenerator create(CodeContext context, CaptnProtoEnum captnEnum, ClassTopology parent);
+    EnumGenerator create(CodeContext context, CaptnProtoEnum captnEnum, ClassTopology parent);
 
 }

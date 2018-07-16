@@ -5,6 +5,6 @@ import admiral_plasma.poetry.java.simple.ClassTopology;
 
 public interface GroupGeneratorFactory {
 
-	GroupGenerator create(CodeContext context, CaptnProtoContainer captainContainer, ClassTopology parent);
+    GroupGenerator create(CodeContext context, CaptnProtoContainer captainContainer, ClassTopology parent);
 
 }

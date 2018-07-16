@@ -8,8 +8,8 @@ import admiral_plasma.poetry.api.GroupGenerator;
 
 public class SimpleGroupGenerator extends SimpleContainerGenerator implements GroupGenerator {
 
-	public SimpleGroupGenerator(CodeContext context, CaptnProtoContainer captainContainer, ClassTopology parentTopology) {
-		super(context, captainContainer, parentTopology.add(captainContainer.getName() + "Group"), Modifier.STATIC);
-	}
+    public SimpleGroupGenerator(CodeContext context, CaptnProtoContainer captainContainer, ClassTopology parentTopology) {
+        super(context, captainContainer, parentTopology.add(captainContainer.getName() + "Group"), Modifier.STATIC);
+    }
 
 }

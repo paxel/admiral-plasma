@@ -4,9 +4,9 @@ import java.io.IOException;
 
 public interface FileGenerator {
 
-	void generate() throws IOException;
+    void generate() throws IOException;
 
-	void addUnion(EnumGenerator generator) throws IOException;
+    void addUnion(EnumGenerator generator) throws IOException;
 
-	void addStruct(StructGenerator generator) throws IOException;
+    void addStruct(StructGenerator generator) throws IOException;
 }

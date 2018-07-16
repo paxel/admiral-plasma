@@ -17,24 +17,24 @@ import admiral_plasma.definition.api.CaptnProtoSchema;
 
 public class CaptProtoSchemaBuilderTest {
 
-	private String NL = "\n";
+    private String NL = "\n";
 
-	@Test
-	public void testSomeMethod() throws IOException, InterruptedException, ExecutionException {
+    @Test
+    public void testSomeMethod() throws IOException, InterruptedException, ExecutionException {
 
-		final ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-		final PrintWriter printWriter = new PrintWriter(byteArrayOutputStream);
-		CaptnProtoSchema schema = TestSchema.get();
-		schema.print(printWriter);
-		printWriter.flush();
+        final ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        final PrintWriter printWriter = new PrintWriter(byteArrayOutputStream);
+        CaptnProtoSchema schema = TestSchema.get();
+        schema.print(printWriter);
+        printWriter.flush();
 
-		ClassLoader classLoader = getClass().getClassLoader();
-		File file = new File(classLoader.getResource("example.capn").getFile());
-		final String expected = new String(Files.readAllBytes(file.toPath()));
-		final String value = new String(byteArrayOutputStream.toByteArray());
-		//System.out.println(value);
-		assertThat(value, is(expected));
+        ClassLoader classLoader = getClass().getClassLoader();
+        File file = new File(classLoader.getResource("example.capn").getFile());
+        final String expected = new String(Files.readAllBytes(file.toPath()));
+        final String value = new String(byteArrayOutputStream.toByteArray());
+        //System.out.println(value);
+        assertThat(value, is(expected));
 
-	}
+    }
 
 }

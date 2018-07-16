@@ -12,55 +12,55 @@ import admiral_plasma.definition.api.ContainerType;
 
 public class CaptnProtoContainerBuilder implements Builder<CaptnProtoContainer> {
 
-	private final ContainerType type;
-	private final String name;
-	private final ContainerCollector containers;
-	private final EnumCollector enums;
-	private final ValueCollector values = new ValueCollector();
-	private final IdGenerator idGenerator;
-	private Parents parents;
+    private final ContainerType type;
+    private final String name;
+    private final ContainerCollector containers;
+    private final EnumCollector enums;
+    private final ValueCollector values = new ValueCollector();
+    private final IdGenerator idGenerator;
+    private Parents parents;
 
-	public CaptnProtoContainerBuilder(String name, ContainerType type, IdGenerator generator, Parents parents) {
-		this.name = name;
-		this.type = type;
-		this.idGenerator = generator;
-		this.parents = parents;
-		Parents newParent = parents.add(name);
-		this.containers = new ContainerCollector(newParent);
-		this.enums = new EnumCollector(newParent);
-	}
+    public CaptnProtoContainerBuilder(String name, ContainerType type, IdGenerator generator, Parents parents) {
+        this.name = name;
+        this.type = type;
+        this.idGenerator = generator;
+        this.parents = parents;
+        Parents newParent = parents.add(name);
+        this.containers = new ContainerCollector(newParent);
+        this.enums = new EnumCollector(newParent);
+    }
 
-	public CaptnProtoContainerBuilder addBodyUnion() {
-		return containers.addUnion("", idGenerator);
-	}
+    public CaptnProtoContainerBuilder addBodyUnion() {
+        return containers.addUnion("", idGenerator);
+    }
 
-	public CaptnProtoEnumBuilder addEnum(String name) {
-		return enums.add(name);
-	}
+    public CaptnProtoEnumBuilder addEnum(String name) {
+        return enums.add(name);
+    }
 
-	public CaptnProtoContainerBuilder addGroup(String name) {
-		return containers.addGroup(name, idGenerator);
-	}
+    public CaptnProtoContainerBuilder addGroup(String name) {
+        return containers.addGroup(name, idGenerator);
+    }
 
-	public CaptnProtoContainerBuilder addStruct(String name) {
-		return containers.addStruct(name);
-	}
+    public CaptnProtoContainerBuilder addStruct(String name) {
+        return containers.addStruct(name);
+    }
 
-	public CaptnProtoContainerBuilder addUnion(String name) {
-		return containers.addUnion(name, idGenerator);
-	}
+    public CaptnProtoContainerBuilder addUnion(String name) {
+        return containers.addUnion(name, idGenerator);
+    }
 
-	public CaptnProtoValueBuilder addValue(String name) {
-		return values.add(name, idGenerator);
-	}
+    public CaptnProtoValueBuilder addValue(String name) {
+        return values.add(name, idGenerator);
+    }
 
-	@Override
-	public CaptnProtoContainer build() {
-		try {
-			return new CaptnProtoContainer(name, type, values.build(), containers.build(), enums.build(), parents);
-		} catch (InterruptedException | ExecutionException ex) {
-			throw new RuntimeException(ex);
-		}
+    @Override
+    public CaptnProtoContainer build() {
+        try {
+            return new CaptnProtoContainer(name, type, values.build(), containers.build(), enums.build(), parents);
+        } catch (InterruptedException | ExecutionException ex) {
+            throw new RuntimeException(ex);
+        }
 
-	}
+    }
 }
