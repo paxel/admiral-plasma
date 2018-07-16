@@ -12,8 +12,8 @@ import admiral_plasma.poetry.api.StructGenerator;
 
 public class SimpleStructGenerator extends SimpleContainerGenerator implements StructGenerator {
 
-    public SimpleStructGenerator(CodeContext context, CaptnProtoContainer captainContainer, ClassTopology parent) {
-        super(context, captainContainer, parent.add(captainContainer.getName()));
+    public SimpleStructGenerator(String name, CodeContext context, ClassTopology parent) {
+        super(context, parent.add(name));
     }
 
     @Override

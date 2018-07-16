@@ -8,13 +8,9 @@ import java.util.Map;
 import com.squareup.javapoet.ClassName;
 
 import admiral_plasma.definition.api.BuildinType;
-import admiral_plasma.definition.api.CaptnProtoContainer;
 import admiral_plasma.definition.api.CaptnProtoEnum;
-import admiral_plasma.definition.api.CaptnProtoSchema;
 import admiral_plasma.definition.api.CaptnProtoValue;
 import admiral_plasma.poetry.java.simple.ClassTopology;
-import admiral_plasma.poetry.java.simple.SimpleClassGenerator;
-import admiral_plasma.poetry.java.simple.SimpleStructGenerator;
 import admiral_plasma.poetry.support.Blob;
 import admiral_plasma.poetry.support.Uint16;
 import admiral_plasma.poetry.support.Uint32;
@@ -90,9 +86,8 @@ public class CodeContext {
         return properties.getFileGeneratorFactory().create(context);
     }
 
-    public StructGenerator newStructGenerator(CodeContext context, CaptnProtoContainer captainContainer,
-            ClassTopology parentTopology) {
-        return properties.getStructGeneratorFactory().create(context, captainContainer, parentTopology);
+    public StructGenerator newStructGenerator(String name, CodeContext context, ClassTopology parentTopology) {
+        return properties.getStructGeneratorFactory().create(name, context, parentTopology);
     }
 
     public EnumGenerator newEnumGenerator(CodeContext context, CaptnProtoEnum captainEnum,
@@ -100,14 +95,12 @@ public class CodeContext {
         return properties.getEnumGeneratorFactory().create(context, captainEnum, parentTopology);
     }
 
-    public GroupGenerator newGroupGenerator(CodeContext context, CaptnProtoContainer captainContainer,
-            ClassTopology parentTopology) {
-        return properties.getGroupGeneratorFactory().create(context, captainContainer, parentTopology);
+    public GroupGenerator newGroupGenerator(String name, CodeContext context, ClassTopology parentTopology) {
+        return properties.getGroupGeneratorFactory().create(name, context, parentTopology);
     }
 
-    public UnionGenerator newUnionGenerator(CodeContext context, CaptnProtoContainer captainContainer,
-            ClassTopology parentTopology) {
-        return properties.getUnionGeneratorFactory().create(context, captainContainer, parentTopology);
+    public UnionGenerator newUnionGenerator(String name, CodeContext context, ClassTopology parentTopology) {
+        return properties.getUnionGeneratorFactory().create(name, context, parentTopology);
     }
 
 }
