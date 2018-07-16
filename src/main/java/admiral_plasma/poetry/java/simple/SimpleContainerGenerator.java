@@ -85,7 +85,6 @@ public class SimpleContainerGenerator implements ContainerGenerator {
 	@Override
 	public void addStruct(StructGenerator structGenerator) throws IOException {
 		addMember(structGenerator.getClassName(), structGenerator.getName());
-
 		later.run(() -> classBuilder.addType(structGenerator.generate()));
 	}
 
@@ -93,18 +92,16 @@ public class SimpleContainerGenerator implements ContainerGenerator {
 	public void addGroup(GroupGenerator groupGenerator) throws IOException {
 		addMember(groupGenerator.getClassName(), groupGenerator.getName());
 		later.run(() -> classBuilder.addType(groupGenerator.generate()));
-
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public TypeSpec generate() throws IOException {
 
+                // finish all sub classes
+		later.isNow();
 		classBuilder.addMethod(constructor.build());
-
-		later.runNow();
 		return classBuilder.build();
-
 	}
 
 	@Override
