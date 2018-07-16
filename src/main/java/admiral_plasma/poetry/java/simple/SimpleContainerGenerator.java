@@ -21,23 +21,31 @@ import admiral_plasma.poetry.api.UnionGenerator;
 
 public class SimpleContainerGenerator implements ContainerGenerator {
 
-    protected CodeContext context;
-    protected Builder classBuilder;
-    protected com.squareup.javapoet.MethodSpec.Builder constructor;
-    protected CaptnProtoContainer captainContainer;
-    protected final Later<IOException> later = new Later<>();
+    private CodeContext context;
+    private Builder reader;
+    private com.squareup.javapoet.MethodSpec.Builder constructor;
+    private CaptnProtoContainer captainContainer;
+    private final Later<IOException> later = new Later<>();
     private ClassName className;
-    private ClassTopology topology;
+    private ClassTopology readerTopology;
 
     public SimpleContainerGenerator(CodeContext context, CaptnProtoContainer captainContainer, ClassTopology myTopology,
             Modifier... modifiers) {
         this.context = context;
         this.captainContainer = captainContainer;
-        this.topology = myTopology;
+        this.readerTopology = myTopology;
         this.className = ClassName.get(context.getPackageName(), myTopology.getRootName(), myTopology.getStructure());
 
-        this.classBuilder = TypeSpec.classBuilder(myTopology.getClassName()).addModifiers(Modifier.PUBLIC);
+        this.reader = TypeSpec.classBuilder(myTopology.getClassName()).addModifiers(Modifier.PUBLIC);
         this.constructor = MethodSpec.constructorBuilder().addModifiers(modifiers);
+    }
+
+    public Builder getReader() {
+        return reader;
+    }
+
+    public Later<IOException> getLater() {
+        return later;
     }
 
     @Override
@@ -47,12 +55,12 @@ public class SimpleContainerGenerator implements ContainerGenerator {
 
     @Override
     public String getName() {
-        return topology.getClassName();
+        return readerTopology.getClassName();
     }
 
     @Override
     public void addEnum(EnumGenerator enumGenerator) throws IOException {
-        later.run(() -> classBuilder.addType(enumGenerator.generate()));
+        later.run(() -> reader.addType(enumGenerator.generate()));
     }
 
     @Override
@@ -68,30 +76,30 @@ public class SimpleContainerGenerator implements ContainerGenerator {
         String name = JavaNames.toVariableName(originalName);
         FieldSpec spec = FieldSpec.builder(className, name, Modifier.PRIVATE, Modifier.FINAL).build();
 
-        classBuilder.addField(spec);
+        reader.addField(spec);
         constructor.addParameter(className, name).addStatement("this.$N = $N", name, name);
 
         MethodSpec.Builder getter = MethodSpec.methodBuilder("get" + JavaNames.toClassName(name))
                 .addModifiers(Modifier.PUBLIC).returns(className).addStatement("return this.$N", name);
-        classBuilder.addMethod(getter.build());
+        reader.addMethod(getter.build());
     }
 
     @Override
     public void addUnion(UnionGenerator unionGenerator) throws IOException {
         addMember(unionGenerator.getClassName(), unionGenerator.getName());
-        later.run(() -> classBuilder.addType(unionGenerator.generate()));
+        later.run(() -> reader.addType(unionGenerator.generate()));
     }
 
     @Override
     public void addStruct(StructGenerator structGenerator) throws IOException {
         addMember(structGenerator.getClassName(), structGenerator.getName());
-        later.run(() -> classBuilder.addType(structGenerator.generate()));
+        later.run(() -> reader.addType(structGenerator.generate()));
     }
 
     @Override
     public void addGroup(GroupGenerator groupGenerator) throws IOException {
         addMember(groupGenerator.getClassName(), groupGenerator.getName());
-        later.run(() -> classBuilder.addType(groupGenerator.generate()));
+        later.run(() -> reader.addType(groupGenerator.generate()));
     }
 
     @SuppressWarnings("unchecked")
@@ -100,13 +108,13 @@ public class SimpleContainerGenerator implements ContainerGenerator {
 
         // finish all sub classes
         later.isNow();
-        classBuilder.addMethod(constructor.build());
-        return classBuilder.build();
+        reader.addMethod(constructor.build());
+        return reader.build();
     }
 
     @Override
     public ClassTopology getClassTopology() {
-        return topology;
+        return readerTopology;
     }
 
 }

@@ -24,6 +24,6 @@ public class SimpleStructGenerator extends SimpleContainerGenerator implements S
 
     @Override
     public void setSubStruct() {
-        later.run(() -> classBuilder.addModifiers(Modifier.STATIC));
+        getLater().run(() -> getReader().addModifiers(Modifier.STATIC));
     }
 }
