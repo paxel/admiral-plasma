@@ -28,9 +28,9 @@ public class SimpleContainerGenerator implements ContainerGenerator {
 
     private final ClassName builderClassName;
     private final Builder builder;
-    private ClassTopology builderTopology;
+    private final ClassTopology builderTopology;
 
-    private com.squareup.javapoet.MethodSpec.Builder readerConstructor;
+    private final com.squareup.javapoet.MethodSpec.Builder readerConstructor;
 
     private final Later<IOException> later = new Later<>();
     private final MethodSpec.Builder builderBuild;
@@ -42,17 +42,28 @@ public class SimpleContainerGenerator implements ContainerGenerator {
 
         this.readerTopology = myTopology;
         this.readerClassName = ClassName.get(context.getPackageName(), myTopology.getRootName(), myTopology.getStructure());
-        this.reader = TypeSpec.classBuilder(readerTopology.getClassName()).addModifiers(Modifier.PUBLIC);
-        this.readerConstructor = MethodSpec.constructorBuilder().addModifiers(modifiers);
+        this.reader = TypeSpec.classBuilder(readerTopology.getClassName()).addModifiers(Modifier.PUBLIC).addModifiers(modifiers);
+        this.readerConstructor = MethodSpec.constructorBuilder().addModifiers(Modifier.PRIVATE);
 
         this.builderTopology = myTopology.add("Builder");
-        this.builderClassName = ClassName.get(context.getPackageName(), myTopology.getRootName(), myTopology.getStructure());
-        this.builder = TypeSpec.classBuilder(builderTopology.getClassName()).addModifiers(Modifier.PUBLIC);
+        this.builderClassName = ClassName.get(context.getPackageName(), builderTopology.getRootName(), builderTopology.getStructure());
+        this.builder = TypeSpec.classBuilder(builderTopology.getClassName()).addModifiers(Modifier.PUBLIC).addModifiers(Modifier.STATIC);
         this.builderBuild = MethodSpec.methodBuilder("build").addModifiers(Modifier.PUBLIC).returns(readerClassName);
+
+        this.reader.addMethod(MethodSpec.methodBuilder("create").addModifiers(Modifier.PUBLIC, Modifier.STATIC)
+                .returns(builderClassName).addCode("$[return new $T()$]", builderClassName).build());
         this.block = CodeBlock.builder().add("$[return new $T(", readerClassName);
         this.firstMember = true;
-        later.run(() -> builder.addMethod(builderBuild.addCode(block.add("$]").build()).build()));
+        later.run(() -> reader.addType(builder.addMethod(builderBuild.addCode(block.add(");\n$]").build()).build()).build()));
 
+    }
+
+    public ClassName getBuilderClassName() {
+        return builderClassName;
+    }
+
+    public final Builder getBuilder() {
+        return builder;
     }
 
     public Builder getReader() {
@@ -86,13 +97,12 @@ public class SimpleContainerGenerator implements ContainerGenerator {
         addMember(className, name);
     }
 
-    private void addMember(ClassName className, String originalName) {
+    protected void addMember(ClassName className, String originalName) {
         String name = JavaNames.toVariableName(originalName);
-        FieldSpec spec = FieldSpec.builder(className, name, Modifier.PRIVATE, Modifier.FINAL).build();
 
         // field for reader and builder
-        reader.addField(spec);
-        builder.addField(spec);
+        reader.addField(FieldSpec.builder(className, name, Modifier.PRIVATE, Modifier.FINAL).build());
+        builder.addField(FieldSpec.builder(className, name, Modifier.PRIVATE).build());
 
         // constructor and factory method
         readerConstructor.addParameter(className, name).addStatement("this.$N = $N", name, name);
@@ -108,16 +118,20 @@ public class SimpleContainerGenerator implements ContainerGenerator {
         builder.addMethod(getter);
 
         // setter for builder
-        MethodSpec setter = MethodSpec.methodBuilder("get" + JavaNames.toClassName(name))
-                .addModifiers(Modifier.PUBLIC)
-                .returns(builderClassName)
-                .addStatement("this.$N=$N", name, name)
-                .addStatement("return this")
-                .addParameter(className, name)
+        MethodSpec setter = prepareSetter(name, className)
                 .build();
         builder.addMethod(setter);
 
         firstMember = false;
+    }
+
+    protected MethodSpec.Builder prepareSetter(String name, ClassName className) {
+        return MethodSpec.methodBuilder("set" + JavaNames.toClassName(name))
+                .addModifiers(Modifier.PUBLIC)
+                .returns(builderClassName)
+                .addStatement("this.$N=$N", name, name)
+                .addStatement("return this")
+                .addParameter(className, name);
     }
 
     @Override

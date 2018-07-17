@@ -11,5 +11,4 @@ public class SimpleGroupGenerator extends SimpleContainerGenerator implements Gr
         super(context, parentTopology.add(name + "Group"), Modifier.STATIC);
     }
 
-    
 }

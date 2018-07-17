@@ -4,9 +4,6 @@ import java.io.IOException;
 
 import javax.lang.model.element.Modifier;
 
-import com.squareup.javapoet.ClassName;
-
-import admiral_plasma.definition.api.CaptnProtoContainer;
 import admiral_plasma.poetry.api.CodeContext;
 import admiral_plasma.poetry.api.StructGenerator;
 
