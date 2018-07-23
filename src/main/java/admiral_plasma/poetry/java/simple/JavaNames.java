@@ -63,7 +63,7 @@ public class JavaNames {
         if (name == null || name.isEmpty()) {
             return "NULL";
         }
-        return addSeperators(firstChar(name).toLowerCase() + rest(name));
+        return addSeperators(name);
     }
 
     private static String addSeperators(String string) {

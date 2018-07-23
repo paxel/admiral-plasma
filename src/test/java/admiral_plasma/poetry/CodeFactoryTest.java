@@ -34,7 +34,7 @@ public class CodeFactoryTest {
     }
 
     private void givenProperties() {
-        this.properties = new CodeProperties().setPackageName("org.afk").setTargetDir(Paths.get("src/generated/java"))
+        this.properties = new CodeProperties().setPackageName("org.afk").setTargetDir(Paths.get("target/generated-sources/test"))
                 .setFileGeneratorFactory(SimpleClassGenerator::new)
                 .setStructGeneratorFactory(SimpleStructGenerator::new)
                 .setGroupGeneratorFactory(SimpleGroupGenerator::new)

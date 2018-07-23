@@ -21,6 +21,7 @@ public class TestSchema {
                 {
                     final CaptnProtoContainerBuilder deeper = sub.addStruct("evenDeeper");
                     deeper.addValue("last").setType("Exit");
+                    deeper.addEnum("Exit").add("OK").add("ERR").add("NO_CHEESE");
                 }
                 final CaptnProtoContainerBuilder bodyUnion = node.addBodyUnion();
                 {

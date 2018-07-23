@@ -8,6 +8,12 @@ struct Node {
 
       struct evenDeeper {
          last @0 :Exit;
+
+         enum Exit {
+            OK @0;
+            ERR @1;
+            NO_CHEESE @2;
+         }
       }
    }
 

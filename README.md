@@ -80,6 +80,20 @@ creates
 ```java
 package org.afk;
 
+public enum DemoEnum {
+  ALPHA,
+
+  BETA,
+
+  GAMMA
+}
+
+```
+and
+
+```java
+package org.afk;
+
 import admiral_plasma.poetry.support.Uint8;
 import java.lang.Float;
 import java.lang.IllegalStateException;
@@ -103,7 +117,8 @@ public class Node {
   }
 
   public static Builder create() {
-    return new Builder()}
+    return new Builder();
+  }
 
   public Float getValue() {
     return this.value;
@@ -182,7 +197,8 @@ public class Node {
     }
 
     public static Builder create() {
-      return new Builder()}
+      return new Builder();
+    }
 
     public String getSome() {
       return this.some;
@@ -228,7 +244,8 @@ public class Node {
       }
 
       public static Builder create() {
-        return new Builder()}
+        return new Builder();
+      }
 
       public Exit getLast() {
         return this.last;
@@ -250,6 +267,14 @@ public class Node {
           return new EvenDeeper(this.last);
         }
       }
+
+      public enum Exit {
+        OK,
+
+        ERR,
+
+        NO_CHEESE
+      }
     }
   }
 
@@ -264,7 +289,8 @@ public class Node {
     }
 
     public static Builder create() {
-      return new Builder()}
+      return new Builder();
+    }
 
     public HelloKittyGroup getHelloKittyGroup() {
       return this.helloKittyGroup;
@@ -275,178 +301,181 @@ public class Node {
     }
 
     public static class Builder {
-      private final boolean unionSet;
+      private boolean unionSet;
 
       private HelloKittyGroup helloKittyGroup;
 
       private BarbiesGroup barbiesGroup;
 
       private synchronized void toggleUnionSet() {
-          if (this.unionSet) throw new IllegalStateException("A Union can have only one value.");
-          this.unionSet=true;
+        if (this.unionSet)  {
+          throw new IllegalStateException("A Union can have only one value.");
         }
-
-        public HelloKittyGroup getHelloKittyGroup() {
-          return this.helloKittyGroup;
-        }
-
-        public Builder setHelloKittyGroup(HelloKittyGroup helloKittyGroup) {
-          toggleUnion();
-          this.helloKittyGroup=helloKittyGroup;
-          return this;
-        }
-
-        public BarbiesGroup getBarbiesGroup() {
-          return this.barbiesGroup;
-        }
-
-        public Builder setBarbiesGroup(BarbiesGroup barbiesGroup) {
-          toggleUnion();
-          this.barbiesGroup=barbiesGroup;
-          return this;
-        }
-
-        public Union build() {
-          return new Union(this.helloKittyGroup, this.barbiesGroup);
-        }
+        this.unionSet=true;
       }
 
-      public static class HelloKittyGroup {
-        private final String tiger;
+      public HelloKittyGroup getHelloKittyGroup() {
+        return this.helloKittyGroup;
+      }
 
-        private final Short bear;
+      public Builder setHelloKittyGroup(HelloKittyGroup helloKittyGroup) {
+        toggleUnionSet();
+        this.helloKittyGroup=helloKittyGroup;
+        return this;
+      }
 
-        private final Uint8 lion;
+      public BarbiesGroup getBarbiesGroup() {
+        return this.barbiesGroup;
+      }
 
-        private HelloKittyGroup(String tiger, Short bear, Uint8 lion) {
-          this.tiger = tiger;
-          this.bear = bear;
-          this.lion = lion;
-        }
+      public Builder setBarbiesGroup(BarbiesGroup barbiesGroup) {
+        toggleUnionSet();
+        this.barbiesGroup=barbiesGroup;
+        return this;
+      }
 
-        public static Builder create() {
-          return new Builder()}
+      public Union build() {
+        return new Union(this.helloKittyGroup, this.barbiesGroup);
+      }
+    }
+
+    public static class HelloKittyGroup {
+      private final String tiger;
+
+      private final Short bear;
+
+      private final Uint8 lion;
+
+      private HelloKittyGroup(String tiger, Short bear, Uint8 lion) {
+        this.tiger = tiger;
+        this.bear = bear;
+        this.lion = lion;
+      }
+
+      public static Builder create() {
+        return new Builder();
+      }
+
+      public String getTiger() {
+        return this.tiger;
+      }
+
+      public Short getBear() {
+        return this.bear;
+      }
+
+      public Uint8 getLion() {
+        return this.lion;
+      }
+
+      public static class Builder {
+        private String tiger;
+
+        private Short bear;
+
+        private Uint8 lion;
 
         public String getTiger() {
           return this.tiger;
+        }
+
+        public Builder setTiger(String tiger) {
+          this.tiger=tiger;
+          return this;
         }
 
         public Short getBear() {
           return this.bear;
         }
 
+        public Builder setBear(Short bear) {
+          this.bear=bear;
+          return this;
+        }
+
         public Uint8 getLion() {
           return this.lion;
         }
 
-        public static class Builder {
-          private String tiger;
+        public Builder setLion(Uint8 lion) {
+          this.lion=lion;
+          return this;
+        }
 
-          private Short bear;
-
-          private Uint8 lion;
-
-          public String getTiger() {
-            return this.tiger;
-          }
-
-          public Builder setTiger(String tiger) {
-            this.tiger=tiger;
-            return this;
-          }
-
-          public Short getBear() {
-            return this.bear;
-          }
-
-          public Builder setBear(Short bear) {
-            this.bear=bear;
-            return this;
-          }
-
-          public Uint8 getLion() {
-            return this.lion;
-          }
-
-          public Builder setLion(Uint8 lion) {
-            this.lion=lion;
-            return this;
-          }
-
-          public HelloKittyGroup build() {
-            return new HelloKittyGroup(this.tiger, this.bear, this.lion);
-          }
+        public HelloKittyGroup build() {
+          return new HelloKittyGroup(this.tiger, this.bear, this.lion);
         }
       }
+    }
 
-      public static class BarbiesGroup {
-        private final String maria;
+    public static class BarbiesGroup {
+      private final String maria;
 
-        private final Short siglinde;
+      private final Short siglinde;
 
-        private final Uint8 marietta;
+      private final Uint8 marietta;
 
-        private BarbiesGroup(String maria, Short siglinde, Uint8 marietta) {
-          this.maria = maria;
-          this.siglinde = siglinde;
-          this.marietta = marietta;
-        }
+      private BarbiesGroup(String maria, Short siglinde, Uint8 marietta) {
+        this.maria = maria;
+        this.siglinde = siglinde;
+        this.marietta = marietta;
+      }
 
-        public static Builder create() {
-          return new Builder()}
+      public static Builder create() {
+        return new Builder();
+      }
+
+      public String getMaria() {
+        return this.maria;
+      }
+
+      public Short getSiglinde() {
+        return this.siglinde;
+      }
+
+      public Uint8 getMarietta() {
+        return this.marietta;
+      }
+
+      public static class Builder {
+        private String maria;
+
+        private Short siglinde;
+
+        private Uint8 marietta;
 
         public String getMaria() {
           return this.maria;
+        }
+
+        public Builder setMaria(String maria) {
+          this.maria=maria;
+          return this;
         }
 
         public Short getSiglinde() {
           return this.siglinde;
         }
 
+        public Builder setSiglinde(Short siglinde) {
+          this.siglinde=siglinde;
+          return this;
+        }
+
         public Uint8 getMarietta() {
           return this.marietta;
         }
 
-        public static class Builder {
-          private String maria;
+        public Builder setMarietta(Uint8 marietta) {
+          this.marietta=marietta;
+          return this;
+        }
 
-          private Short siglinde;
-
-          private Uint8 marietta;
-
-          public String getMaria() {
-            return this.maria;
-          }
-
-          public Builder setMaria(String maria) {
-            this.maria=maria;
-            return this;
-          }
-
-          public Short getSiglinde() {
-            return this.siglinde;
-          }
-
-          public Builder setSiglinde(Short siglinde) {
-            this.siglinde=siglinde;
-            return this;
-          }
-
-          public Uint8 getMarietta() {
-            return this.marietta;
-          }
-
-          public Builder setMarietta(Uint8 marietta) {
-            this.marietta=marietta;
-            return this;
-          }
-
-          public BarbiesGroup build() {
-            return new BarbiesGroup(this.maria, this.siglinde, this.marietta);
-          }
+        public BarbiesGroup build() {
+          return new BarbiesGroup(this.maria, this.siglinde, this.marietta);
         }
       }
     }
   }
-
+}
 ´´´
