@@ -23,7 +23,8 @@ public class Node {
   }
 
   public static Builder create() {
-    return new Builder()}
+    return new Builder();
+  }
 
   public Float getValue() {
     return this.value;
@@ -102,7 +103,8 @@ public class Node {
     }
 
     public static Builder create() {
-      return new Builder()}
+      return new Builder();
+    }
 
     public String getSome() {
       return this.some;
@@ -148,7 +150,8 @@ public class Node {
       }
 
       public static Builder create() {
-        return new Builder()}
+        return new Builder();
+      }
 
       public Exit getLast() {
         return this.last;
@@ -184,7 +187,8 @@ public class Node {
     }
 
     public static Builder create() {
-      return new Builder()}
+      return new Builder();
+    }
 
     public HelloKittyGroup getHelloKittyGroup() {
       return this.helloKittyGroup;
@@ -245,7 +249,8 @@ public class Node {
         }
 
         public static Builder create() {
-          return new Builder()}
+          return new Builder();
+        }
 
         public String getTiger() {
           return this.tiger;
@@ -313,7 +318,8 @@ public class Node {
         }
 
         public static Builder create() {
-          return new Builder()}
+          return new Builder();
+        }
 
         public String getMaria() {
           return this.maria;

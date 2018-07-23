@@ -51,10 +51,10 @@ public class SimpleContainerGenerator implements ContainerGenerator {
         this.builderBuild = MethodSpec.methodBuilder("build").addModifiers(Modifier.PUBLIC).returns(readerClassName);
 
         this.reader.addMethod(MethodSpec.methodBuilder("create").addModifiers(Modifier.PUBLIC, Modifier.STATIC)
-                .returns(builderClassName).addCode("$[return new $T()$]", builderClassName).build());
-        this.block = CodeBlock.builder().add("$[return new $T(", readerClassName);
+                .returns(builderClassName).addStatement("return new $T()", builderClassName).build());
+        this.block = CodeBlock.builder().add("return new $T(", readerClassName);
         this.firstMember = true;
-        later.run(() -> reader.addType(builder.addMethod(builderBuild.addCode(block.add(");\n$]").build()).build()).build()));
+        later.run(() -> reader.addType(builder.addMethod(builderBuild.addCode(block.add(");\n").build()).build()).build()));
 
     }
 
