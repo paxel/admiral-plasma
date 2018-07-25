@@ -9,6 +9,16 @@ public class CaptnProtoValueBuilder implements Builder<CaptnProtoValue> {
     private final IdGenerator generator;
     private String type;
     private String defaultValue;
+    private boolean constant;
+
+    public boolean isConstant() {
+        return constant;
+    }
+
+    public CaptnProtoValueBuilder setConstant(boolean constant) {
+        this.constant = constant;
+        return this;
+    }
 
     public CaptnProtoValueBuilder(String name, IdGenerator generator) {
         this.name = name;
@@ -17,11 +27,12 @@ public class CaptnProtoValueBuilder implements Builder<CaptnProtoValue> {
 
     @Override
     public CaptnProtoValue build() {
-        return new CaptnProtoValue(name, type, generator.next(), defaultValue);
+        return new CaptnProtoValue(name, type, generator.next(), defaultValue, constant);
     }
 
-    public void setDefaultValue(String defaultValue) {
+    public CaptnProtoValueBuilder setDefaultValue(String defaultValue) {
         this.defaultValue = defaultValue;
+        return this;
     }
 
     public CaptnProtoValueBuilder setType(BuildinType type) {

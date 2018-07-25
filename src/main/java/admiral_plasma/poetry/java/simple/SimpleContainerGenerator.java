@@ -94,14 +94,19 @@ public class SimpleContainerGenerator implements ContainerGenerator {
 
         ClassName className = context.getClassName(captainValue);
         String name = captainValue.getName();
-        addMember(className, name);
+        if (captainValue.isConstant()) {
+            addConstant(className, name, captainValue.getDefaultValue());
+        } else {
+            addMember(className, name, null);
+        }
     }
 
-    protected void addMember(ClassName className, String originalName) {
+    protected void addMember(ClassName className, String originalName, String defaultValue) {
         String name = JavaNames.toVariableName(originalName);
 
         // field for reader and builder
         reader.addField(FieldSpec.builder(className, name, Modifier.PRIVATE, Modifier.FINAL).build());
+
         builder.addField(FieldSpec.builder(className, name, Modifier.PRIVATE).build());
 
         // constructor and factory method
@@ -125,6 +130,11 @@ public class SimpleContainerGenerator implements ContainerGenerator {
         firstMember = false;
     }
 
+    protected void addConstant(ClassName className, String originalName, String value) {
+        String name = JavaNames.toConstantName(originalName);
+        reader.addField(FieldSpec.builder(className, name, Modifier.PUBLIC, Modifier.FINAL, Modifier.STATIC).initializer(value).build());
+    }
+
     protected MethodSpec.Builder prepareSetter(String name, ClassName className) {
         return MethodSpec.methodBuilder("set" + JavaNames.toClassName(name))
                 .addModifiers(Modifier.PUBLIC)
@@ -136,19 +146,19 @@ public class SimpleContainerGenerator implements ContainerGenerator {
 
     @Override
     public void addUnion(UnionGenerator unionGenerator) throws IOException {
-        addMember(unionGenerator.getClassName(), unionGenerator.getName());
+        addMember(unionGenerator.getClassName(), unionGenerator.getName(), null);
         later.run(() -> reader.addType(unionGenerator.generate()));
     }
 
     @Override
     public void addStruct(StructGenerator structGenerator) throws IOException {
-        addMember(structGenerator.getClassName(), structGenerator.getName());
+        addMember(structGenerator.getClassName(), structGenerator.getName(), null);
         later.run(() -> reader.addType(structGenerator.generate()));
     }
 
     @Override
     public void addGroup(GroupGenerator groupGenerator) throws IOException {
-        addMember(groupGenerator.getClassName(), groupGenerator.getName());
+        addMember(groupGenerator.getClassName(), groupGenerator.getName(), null);
         later.run(() -> reader.addType(groupGenerator.generate()));
     }
 

@@ -4,7 +4,7 @@ struct Node {
    otherValue @1 :DemoEnum;
 
    struct Sub {
-      Some @0 :Text = hey;
+      const SOME @0 :Text = hey;
 
       struct evenDeeper {
          last @0 :Exit;

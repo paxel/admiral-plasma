@@ -17,7 +17,7 @@ public class TestSchema {
             node.addValue("otherValue").setType("DemoEnum");
             {
                 final CaptnProtoContainerBuilder sub = node.addStruct("Sub");
-                sub.addValue("Some").setType(BuildinType.TEXT).setDefaultValue("hey");
+                sub.addValue("SOME").setType(BuildinType.TEXT).setDefaultValue("hey").setConstant(true);
                 {
                     final CaptnProtoContainerBuilder deeper = sub.addStruct("evenDeeper");
                     deeper.addValue("last").setType("Exit");
