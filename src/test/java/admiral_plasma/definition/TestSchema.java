@@ -13,7 +13,7 @@ public class TestSchema {
         CapnProtoSchemaBuilder builder = new CapnProtoSchemaBuilder();
         {
             final CaptnProtoContainerBuilder node = builder.addStruct("Node");
-            node.addValue("value").setType(BuildinType.FLOAT_32).setDefaultValue("unset");
+            node.addValue("value").setType(BuildinType.FLOAT_32);
             node.addValue("otherValue").setType("DemoEnum");
             {
                 final CaptnProtoContainerBuilder sub = node.addStruct("Sub");
@@ -27,7 +27,7 @@ public class TestSchema {
                 {
                     final CaptnProtoContainerBuilder helloKitty = bodyUnion.addGroup("hello_kitty");
                     helloKitty.addValue("tiger").setType(BuildinType.TEXT);
-                    helloKitty.addValue("bear").setType(BuildinType.INT_16);
+                    helloKitty.addValue("bear").setType(BuildinType.INT_16).setDefaultValue("8");
                     helloKitty.addValue("lion").setType(BuildinType.UINT_8);
                 }
                 {

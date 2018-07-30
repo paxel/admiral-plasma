@@ -97,7 +97,7 @@ public class SimpleContainerGenerator implements ContainerGenerator {
         if (captainValue.isConstant()) {
             addConstant(className, name, captainValue.getDefaultValue());
         } else {
-            addMember(className, name, null);
+            addMember(className, name, captainValue.getDefaultValue());
         }
     }
 
@@ -106,8 +106,12 @@ public class SimpleContainerGenerator implements ContainerGenerator {
 
         // field for reader and builder
         reader.addField(FieldSpec.builder(className, name, Modifier.PRIVATE, Modifier.FINAL).build());
+        final FieldSpec.Builder field = FieldSpec.builder(className, name, Modifier.PRIVATE);
+        if (defaultValue != null) {
+            field.initializer(formatDefaultValue(className, defaultValue));
+        }
 
-        builder.addField(FieldSpec.builder(className, name, Modifier.PRIVATE).build());
+        builder.addField(field.build());
 
         // constructor and factory method
         readerConstructor.addParameter(className, name).addStatement("this.$N = $N", name, name);
@@ -132,7 +136,12 @@ public class SimpleContainerGenerator implements ContainerGenerator {
 
     protected void addConstant(ClassName className, String originalName, String value) {
         String name = JavaNames.toConstantName(originalName);
-        reader.addField(FieldSpec.builder(className, name, Modifier.PUBLIC, Modifier.FINAL, Modifier.STATIC).initializer(value).build());
+        final FieldSpec.Builder field = FieldSpec.builder(className, name, Modifier.PUBLIC, Modifier.FINAL, Modifier.STATIC);
+        if (value != null) {
+            field.initializer(formatDefaultValue(className, value));
+        }
+
+        reader.addField(field.build());
     }
 
     protected MethodSpec.Builder prepareSetter(String name, ClassName className) {
@@ -175,6 +184,21 @@ public class SimpleContainerGenerator implements ContainerGenerator {
     @Override
     public ClassTopology getClassTopology() {
         return readerTopology;
+    }
+
+    private CodeBlock formatDefaultValue(ClassName className, String value) {
+        if (className.equals(ClassName.get(String.class))) {
+            return CodeBlock.of("$S", value);
+        }
+        if (className.isBoxedPrimitive() || className.isBoxedPrimitive()) {
+            return CodeBlock.of("$L", value);
+        }
+
+        // Constant of a Class that has to be defined yet, like
+        // const bob :Person = (name = "Bob", email = "bob@example.com");
+        // const secret :Data = 0x"9f98739c2b53835e 6720a00907abd42f";
+        // const baz :SomeStruct = (id = .foo, message = .bar);
+        throw new UnsupportedOperationException("Not supported yet. " + className + " = " + value);
     }
 
 }

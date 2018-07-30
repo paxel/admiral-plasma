@@ -1,6 +1,6 @@
 
 struct Node {
-   value @0 :Float32 = unset;
+   value @0 :Float32;
    otherValue @1 :DemoEnum;
 
    struct Sub {
@@ -21,7 +21,7 @@ struct Node {
 
       group hello_kitty {
          tiger @2 :Text;
-         bear @3 :Int16;
+         bear @3 :Int16 = 8;
          lion @4 :UInt8;
       }
 
