@@ -1,9 +1,8 @@
 package admiral_plasma.poetry.java.simple;
 
-import javax.lang.model.element.Modifier;
-
 import admiral_plasma.poetry.api.CodeContext;
 import admiral_plasma.poetry.api.GroupGenerator;
+import javax.lang.model.element.Modifier;
 
 public class SimpleGroupGenerator extends SimpleContainerGenerator implements GroupGenerator {
 

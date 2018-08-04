@@ -1,14 +1,12 @@
 package admiral_plasma.poetry.java.simple;
 
-import javax.lang.model.element.Modifier;
-
-import com.squareup.javapoet.ClassName;
-import com.squareup.javapoet.TypeSpec;
-import com.squareup.javapoet.TypeSpec.Builder;
-
 import admiral_plasma.definition.api.ProtoEnum;
 import admiral_plasma.poetry.api.CodeContext;
 import admiral_plasma.poetry.api.EnumGenerator;
+import com.squareup.javapoet.ClassName;
+import com.squareup.javapoet.TypeSpec;
+import com.squareup.javapoet.TypeSpec.Builder;
+import javax.lang.model.element.Modifier;
 
 public class SimpleEnumGenerator implements EnumGenerator {
 

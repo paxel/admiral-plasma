@@ -1,9 +1,12 @@
 package admiral_plasma.definition.api;
 
+import admiral_plasma.definition.api.ProtoContainer.ContainerCollector;
+import admiral_plasma.definition.api.ProtoContainer.ProtoContainerBuilder;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public class ProtoSchema {
 
@@ -29,6 +32,32 @@ public class ProtoSchema {
         }
         for (ProtoEnum value : enums) {
             value.print(out, 0);
+        }
+    }
+
+    public static ProtoSchemaBuilder create() {
+        return new ProtoSchemaBuilder();
+    }
+
+    public static class ProtoSchemaBuilder implements Builder<ProtoSchema> {
+
+        private ProtoSchemaBuilder() {
+        }
+
+        private final ContainerCollector containers = new ContainerCollector(new Parents());
+        private final ProtoEnum.EnumCollector enums = new ProtoEnum.EnumCollector(new Parents());
+
+        public ProtoEnum.ProtoEnumBuilder addEnum(String name) {
+            return enums.add(name);
+        }
+
+        public ProtoContainerBuilder addStruct(String name) {
+            return containers.addStruct(name);
+        }
+
+        @Override
+        public ProtoSchema build() throws InterruptedException, ExecutionException {
+            return new ProtoSchema(containers.build(), enums.build());
         }
     }
 

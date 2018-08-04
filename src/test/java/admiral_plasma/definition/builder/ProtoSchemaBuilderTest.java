@@ -1,19 +1,16 @@
 package admiral_plasma.definition.builder;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
-
+import admiral_plasma.definition.TestSchema;
+import admiral_plasma.definition.api.ProtoSchema;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.util.concurrent.ExecutionException;
-
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 import org.junit.Test;
-
-import admiral_plasma.definition.TestSchema;
-import admiral_plasma.definition.api.ProtoSchema;
 
 public class ProtoSchemaBuilderTest {
 

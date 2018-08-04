@@ -2,9 +2,10 @@ package admiral_plasma.definition.api;
 
 import java.io.IOException;
 import java.io.Writer;
+import java.util.ArrayList;
 import java.util.List;
-
-import admiral_plasma.definition.builder.Parents;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 public class ProtoContainer implements IndentedPrinter {
 
@@ -70,6 +71,132 @@ public class ProtoContainer implements IndentedPrinter {
         }
         printIndent(out, indent);
         out.append("}\n");
+    }
+
+    public static ProtoContainerBuilder createStruct(String name, IdGenerator idGenerarator, Parents parents) {
+        return new ProtoContainerBuilder(name, ContainerType.STRUCT, idGenerarator, parents);
+    }
+
+    public static class ProtoContainerBuilder implements Builder<ProtoContainer> {
+
+        private final ContainerType type;
+        private final String name;
+        private final ContainerCollector containers;
+        private final ProtoEnum.EnumCollector enums;
+        private final ProtoValue.ValueCollector values = new ProtoValue.ValueCollector();
+        private final IdGenerator idGenerator;
+        private Parents parents;
+
+        private ProtoContainerBuilder(String name, ContainerType type, IdGenerator generator, Parents parents) {
+            this.name = name;
+            this.type = type;
+            this.idGenerator = generator;
+            this.parents = parents;
+            Parents newParent = parents.add(name);
+            this.containers = new ContainerCollector(newParent);
+            this.enums = new ProtoEnum.EnumCollector(newParent);
+        }
+
+        public ProtoContainerBuilder addBodyUnion() {
+            return containers.addUnion("", idGenerator);
+        }
+
+        public ProtoEnum.ProtoEnumBuilder addEnum(String name) {
+            return enums.add(name);
+        }
+
+        public ProtoContainerBuilder addGroup(String name) {
+            return containers.addGroup(name, idGenerator);
+        }
+
+        public ProtoContainerBuilder addStruct(String name) {
+            return containers.addStruct(name);
+        }
+
+        public ProtoContainerBuilder addUnion(String name) {
+            return containers.addUnion(name, idGenerator);
+        }
+
+        public ProtoValue.ProtoValueBuilder addValue(String name) {
+            return values.add(name, idGenerator);
+        }
+
+        @Override
+        public ProtoContainer build() {
+            try {
+                return new ProtoContainer(name, type, values.build(), containers.build(), enums.build(), parents);
+            } catch (InterruptedException | ExecutionException ex) {
+                throw new RuntimeException(ex);
+            }
+
+        }
+    }
+
+    public static class ContainerCollector implements Builder<List<ProtoContainer>> {
+
+        private final CompletableFuture<List<ProtoContainer>> first = new CompletableFuture<>();
+        private CompletableFuture<List<ProtoContainer>> last;
+        private final Parents parents;
+
+        public ContainerCollector(Parents parents) {
+            super();
+            this.parents = parents;
+        }
+
+        public ProtoContainerBuilder addGroup(String name, IdGenerator idGenerator) {
+            final ProtoContainerBuilder builder = new ProtoContainerBuilder(name, ContainerType.GROUP,
+                    idGenerator, parents);
+            synchronized (builder) {
+                this.last = getLast().thenApply(new ChainBuilder<>(builder)::addBuild);
+            }
+            return builder;
+        }
+
+        public ProtoContainerBuilder addStruct(String name) {
+            final ProtoContainerBuilder builder = new ProtoContainerBuilder(name, ContainerType.STRUCT,
+                    new IdGenerator(), parents);
+            synchronized (builder) {
+                this.last = getLast().thenApply(new ChainBuilder<>(builder)::addBuild);
+            }
+            return builder;
+        }
+
+        public ProtoContainerBuilder addUnion(String name, IdGenerator IdGenerator) {
+            final ProtoContainerBuilder builder = new ProtoContainerBuilder(name, ContainerType.UNION,
+                    IdGenerator, parents);
+            synchronized (builder) {
+                this.last = getLast().thenApply(new ChainBuilder<>(builder)::addBuild);
+            }
+            return builder;
+        }
+
+        @Override
+        public List<ProtoContainer> build() throws InterruptedException, ExecutionException {
+            first.complete(new ArrayList<>());
+            return getLast().get();
+        }
+
+        private CompletableFuture<List<ProtoContainer>> getLast() {
+            if (last == null) {
+                return first;
+            }
+            return last;
+        }
+    }
+
+    public static enum ContainerType {
+        STRUCT("struct"), GROUP("group"), UNION("union");
+        private final String syntax;
+
+        private ContainerType(String syntax) {
+            this.syntax = syntax;
+
+        }
+
+        public String getSyntax() {
+            return syntax;
+        }
+
     }
 
 }

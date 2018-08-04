@@ -1,11 +1,9 @@
 package admiral_plasma.poetry.api;
 
-import java.io.IOException;
-
-import com.squareup.javapoet.ClassName;
-
 import admiral_plasma.definition.api.ProtoValue;
 import admiral_plasma.poetry.java.simple.ClassTopology;
+import com.squareup.javapoet.ClassName;
+import java.io.IOException;
 
 public interface ContainerGenerator {
 

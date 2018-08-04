@@ -1,4 +1,4 @@
-package admiral_plasma.definition.builder;
+package admiral_plasma.definition.api;
 
 import java.util.List;
 import java.util.concurrent.ExecutionException;

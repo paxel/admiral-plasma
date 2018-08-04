@@ -1,21 +1,33 @@
 package admiral_plasma.poetry.api;
 
-import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-
-import com.squareup.javapoet.ClassName;
-
-import admiral_plasma.definition.api.BuildinType;
 import admiral_plasma.definition.api.ProtoEnum;
 import admiral_plasma.definition.api.ProtoValue;
+import admiral_plasma.definition.api.ProtoValue.BuildinType;
+import static admiral_plasma.definition.api.ProtoValue.BuildinType.BOOL;
+import static admiral_plasma.definition.api.ProtoValue.BuildinType.DATA;
+import static admiral_plasma.definition.api.ProtoValue.BuildinType.FLOAT_32;
+import static admiral_plasma.definition.api.ProtoValue.BuildinType.FLOAT_64;
+import static admiral_plasma.definition.api.ProtoValue.BuildinType.INT_16;
+import static admiral_plasma.definition.api.ProtoValue.BuildinType.INT_32;
+import static admiral_plasma.definition.api.ProtoValue.BuildinType.INT_64;
+import static admiral_plasma.definition.api.ProtoValue.BuildinType.INT_8;
+import static admiral_plasma.definition.api.ProtoValue.BuildinType.LIST;
+import static admiral_plasma.definition.api.ProtoValue.BuildinType.TEXT;
+import static admiral_plasma.definition.api.ProtoValue.BuildinType.UINT_16;
+import static admiral_plasma.definition.api.ProtoValue.BuildinType.UINT_32;
+import static admiral_plasma.definition.api.ProtoValue.BuildinType.UINT_64;
+import static admiral_plasma.definition.api.ProtoValue.BuildinType.UINT_8;
 import admiral_plasma.poetry.java.simple.ClassTopology;
 import admiral_plasma.poetry.support.Blob;
 import admiral_plasma.poetry.support.Uint16;
 import admiral_plasma.poetry.support.Uint32;
 import admiral_plasma.poetry.support.Uint64;
 import admiral_plasma.poetry.support.Uint8;
+import com.squareup.javapoet.ClassName;
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class CodeContext {
 

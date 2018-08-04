@@ -1,15 +1,5 @@
 package admiral_plasma.poetry.java.simple;
 
-import java.io.IOException;
-
-import javax.lang.model.element.Modifier;
-
-import com.squareup.javapoet.ClassName;
-import com.squareup.javapoet.FieldSpec;
-import com.squareup.javapoet.MethodSpec;
-import com.squareup.javapoet.TypeSpec;
-import com.squareup.javapoet.TypeSpec.Builder;
-
 import admiral_plasma.definition.api.ProtoValue;
 import admiral_plasma.poetry.api.CodeContext;
 import admiral_plasma.poetry.api.ContainerGenerator;
@@ -17,7 +7,14 @@ import admiral_plasma.poetry.api.EnumGenerator;
 import admiral_plasma.poetry.api.GroupGenerator;
 import admiral_plasma.poetry.api.StructGenerator;
 import admiral_plasma.poetry.api.UnionGenerator;
+import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.CodeBlock;
+import com.squareup.javapoet.FieldSpec;
+import com.squareup.javapoet.MethodSpec;
+import com.squareup.javapoet.TypeSpec;
+import com.squareup.javapoet.TypeSpec.Builder;
+import java.io.IOException;
+import javax.lang.model.element.Modifier;
 
 public class SimpleContainerGenerator implements ContainerGenerator {
 

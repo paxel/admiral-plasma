@@ -1,14 +1,12 @@
 package admiral_plasma.poetry.java.simple;
 
-import javax.lang.model.element.Modifier;
-
-import com.squareup.javapoet.ClassName;
-
 import admiral_plasma.poetry.api.CodeContext;
 import admiral_plasma.poetry.api.UnionGenerator;
+import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.CodeBlock;
 import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.MethodSpec;
+import javax.lang.model.element.Modifier;
 
 public class SimpleUnionGenerator extends SimpleContainerGenerator implements UnionGenerator {
 

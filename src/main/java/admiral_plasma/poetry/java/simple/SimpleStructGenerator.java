@@ -1,11 +1,9 @@
 package admiral_plasma.poetry.java.simple;
 
-import java.io.IOException;
-
-import javax.lang.model.element.Modifier;
-
 import admiral_plasma.poetry.api.CodeContext;
 import admiral_plasma.poetry.api.StructGenerator;
+import java.io.IOException;
+import javax.lang.model.element.Modifier;
 
 public class SimpleStructGenerator extends SimpleContainerGenerator implements StructGenerator {
 

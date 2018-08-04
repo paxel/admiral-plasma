@@ -1,12 +1,11 @@
 package admiral_plasma.poetry.api;
 
-import java.io.IOException;
-
 import admiral_plasma.definition.api.ProtoContainer;
 import admiral_plasma.definition.api.ProtoEnum;
 import admiral_plasma.definition.api.ProtoSchema;
 import admiral_plasma.definition.api.ProtoValue;
 import admiral_plasma.poetry.java.simple.ClassTopology;
+import java.io.IOException;
 
 public class CodeFactory {
 

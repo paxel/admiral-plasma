@@ -1,14 +1,12 @@
 package admiral_plasma.poetry.java.simple;
 
-import java.io.IOException;
-
-import com.squareup.javapoet.JavaFile;
-import com.squareup.javapoet.TypeSpec;
-
 import admiral_plasma.poetry.api.CodeContext;
 import admiral_plasma.poetry.api.EnumGenerator;
 import admiral_plasma.poetry.api.FileGenerator;
 import admiral_plasma.poetry.api.StructGenerator;
+import com.squareup.javapoet.JavaFile;
+import com.squareup.javapoet.TypeSpec;
+import java.io.IOException;
 
 public class SimpleClassGenerator implements FileGenerator {
 

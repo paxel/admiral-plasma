@@ -1,16 +1,15 @@
 package admiral_plasma.definition;
 
-import java.util.concurrent.ExecutionException;
-
-import admiral_plasma.definition.api.BuildinType;
+import admiral_plasma.definition.api.ProtoContainer.ProtoContainerBuilder;
 import admiral_plasma.definition.api.ProtoSchema;
-import admiral_plasma.definition.builder.ProtoSchemaBuilder;
-import admiral_plasma.definition.builder.ProtoContainerBuilder;
+import admiral_plasma.definition.api.ProtoSchema.ProtoSchemaBuilder;
+import admiral_plasma.definition.api.ProtoValue.BuildinType;
+import java.util.concurrent.ExecutionException;
 
 public class TestSchema {
 
     public static ProtoSchema get() throws InterruptedException, ExecutionException {
-        ProtoSchemaBuilder builder = new ProtoSchemaBuilder();
+        ProtoSchemaBuilder builder = ProtoSchema.create();
         {
             final ProtoContainerBuilder node = builder.addStruct("Node");
             node.addValue("value").setType(BuildinType.FLOAT_32);
