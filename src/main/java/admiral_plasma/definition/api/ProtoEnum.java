@@ -1,10 +1,15 @@
 package admiral_plasma.definition.api;
 
+import admiral_plasma.definition.builder.Builder;
+import admiral_plasma.definition.builder.ChainBuilder;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.List;
 
 import admiral_plasma.definition.builder.Parents;
+import java.util.ArrayList;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 public class ProtoEnum implements IndentedPrinter {
 
@@ -48,6 +53,66 @@ public class ProtoEnum implements IndentedPrinter {
         }
         printIndent(out, indent);
         out.append("}\n");
+    }
+
+    public static ProtoEnumBuilder create(String name, Parents parents) {
+        return new ProtoEnumBuilder(name, parents);
+    }
+
+    public static class ProtoEnumBuilder implements Builder<ProtoEnum> {
+
+        private final String name;
+        private final List<String> entries = new ArrayList<>();
+        private final Parents parents;
+
+        private ProtoEnumBuilder(String name, Parents parents) {
+            this.name = name;
+            this.parents = parents;
+        }
+
+        public ProtoEnumBuilder add(String e) {
+            entries.add(e);
+            return this;
+        }
+
+        @Override
+        public ProtoEnum build() {
+            return new ProtoEnum(name, entries, parents);
+        }
+
+    }
+
+    public static class EnumCollector implements Builder<List<ProtoEnum>> {
+
+        private final CompletableFuture<List<ProtoEnum>> first = new CompletableFuture<>();
+        private CompletableFuture<List<ProtoEnum>> last;
+        private final Parents parents;
+
+        public EnumCollector(Parents parents) {
+            super();
+            this.parents = parents;
+        }
+
+        public ProtoEnumBuilder add(String name) {
+            final ProtoEnumBuilder builder = ProtoEnum.create(name, parents);
+            synchronized (first) {
+                this.last = getLast().thenApply(new ChainBuilder<>(builder)::addBuild);
+            }
+            return builder;
+        }
+
+        @Override
+        public List<ProtoEnum> build() throws InterruptedException, ExecutionException {
+            first.complete(new ArrayList<>());
+            return getLast().get();
+        }
+
+        private CompletableFuture<List<ProtoEnum>> getLast() {
+            if (last == null) {
+                return first;
+            }
+            return last;
+        }
     }
 
 }

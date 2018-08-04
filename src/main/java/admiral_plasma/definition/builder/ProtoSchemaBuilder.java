@@ -1,5 +1,7 @@
 package admiral_plasma.definition.builder;
 
+import admiral_plasma.definition.api.ProtoEnum.EnumCollector;
+import admiral_plasma.definition.api.ProtoEnum.ProtoEnumBuilder;
 import java.util.concurrent.ExecutionException;
 
 import admiral_plasma.definition.api.ProtoSchema;
