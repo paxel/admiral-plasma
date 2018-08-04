@@ -2,22 +2,22 @@ package admiral_plasma.poetry.api;
 
 import java.io.IOException;
 
-import admiral_plasma.definition.api.CaptnProtoContainer;
-import admiral_plasma.definition.api.CaptnProtoEnum;
-import admiral_plasma.definition.api.CaptnProtoSchema;
-import admiral_plasma.definition.api.CaptnProtoValue;
+import admiral_plasma.definition.api.ProtoContainer;
+import admiral_plasma.definition.api.ProtoEnum;
+import admiral_plasma.definition.api.ProtoSchema;
+import admiral_plasma.definition.api.ProtoValue;
 import admiral_plasma.poetry.java.simple.ClassTopology;
 
 public class CodeFactory {
 
-    public void creatCode(CaptnProtoSchema schema, CodeProperties properties) throws IOException {
+    public void creatCode(ProtoSchema schema, CodeProperties properties) throws IOException {
         CodeContext context = new CodeContext(properties);
-        for (CaptnProtoEnum captainEnum : schema.getEnums()) {
+        for (ProtoEnum captainEnum : schema.getEnums()) {
             FileGenerator enumFile = context.newFileGenerator(context);
             enumFile.addUnion(context.newEnumGenerator(context, captainEnum, new ClassTopology()));
             enumFile.generate();
         }
-        for (CaptnProtoContainer container : schema.getStructs()) {
+        for (ProtoContainer container : schema.getStructs()) {
             switch (container.getType()) {
                 case STRUCT:
                     StructGenerator structGenerator = context.newStructGenerator(container.getName(), context, new ClassTopology());
@@ -33,16 +33,16 @@ public class CodeFactory {
         }
     }
 
-    private void handleContainer(ContainerGenerator parent, CaptnProtoContainer captainContainer, CodeContext context)
+    private void handleContainer(ContainerGenerator parent, ProtoContainer captainContainer, CodeContext context)
             throws IOException {
-        for (CaptnProtoEnum captainEnum : captainContainer.getEnums()) {
+        for (ProtoEnum captainEnum : captainContainer.getEnums()) {
 
             addEnum(parent, captainEnum, context, parent.getClassTopology().add(captainEnum.getName()));
         }
-        for (CaptnProtoValue captainValue : captainContainer.getValues()) {
+        for (ProtoValue captainValue : captainContainer.getValues()) {
             addValue(parent, captainValue, context);
         }
-        for (CaptnProtoContainer subContainer : captainContainer.getStructs()) {
+        for (ProtoContainer subContainer : captainContainer.getStructs()) {
             switch (subContainer.getType()) {
                 case GROUP:
 
@@ -71,11 +71,11 @@ public class CodeFactory {
         }
     }
 
-    private void addValue(ContainerGenerator builder, CaptnProtoValue captainValue, CodeContext context) {
+    private void addValue(ContainerGenerator builder, ProtoValue captainValue, CodeContext context) {
         builder.addValue(captainValue);
     }
 
-    private void addEnum(ContainerGenerator builder, CaptnProtoEnum captainEnum, CodeContext context,
+    private void addEnum(ContainerGenerator builder, ProtoEnum captainEnum, CodeContext context,
             ClassTopology nestedClass) throws IOException {
         builder.addEnum(context.newEnumGenerator(context, captainEnum, nestedClass));
     }

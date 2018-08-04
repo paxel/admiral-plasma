@@ -3,7 +3,7 @@ package admiral_plasma.definition.api;
 import java.io.IOException;
 import java.io.Writer;
 
-public class CaptnProtoValue implements IndentedPrinter {
+public class ProtoValue implements IndentedPrinter {
 
     private final String name;
     private final String type;
@@ -11,7 +11,7 @@ public class CaptnProtoValue implements IndentedPrinter {
     private final String defaultValue;
     private final boolean constant;
 
-    public CaptnProtoValue(String name, String type, int id, String defaultValue, boolean constant) {
+    public ProtoValue(String name, String type, int id, String defaultValue, boolean constant) {
         this.name = name;
         this.type = type;
         this.id = id;

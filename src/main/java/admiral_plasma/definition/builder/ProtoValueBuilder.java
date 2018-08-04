@@ -1,9 +1,9 @@
 package admiral_plasma.definition.builder;
 
 import admiral_plasma.definition.api.BuildinType;
-import admiral_plasma.definition.api.CaptnProtoValue;
+import admiral_plasma.definition.api.ProtoValue;
 
-public class CaptnProtoValueBuilder implements Builder<CaptnProtoValue> {
+public class ProtoValueBuilder implements Builder<ProtoValue> {
 
     private final String name;
     private final IdGenerator generator;
@@ -15,32 +15,32 @@ public class CaptnProtoValueBuilder implements Builder<CaptnProtoValue> {
         return constant;
     }
 
-    public CaptnProtoValueBuilder setConstant(boolean constant) {
+    public ProtoValueBuilder setConstant(boolean constant) {
         this.constant = constant;
         return this;
     }
 
-    public CaptnProtoValueBuilder(String name, IdGenerator generator) {
+    public ProtoValueBuilder(String name, IdGenerator generator) {
         this.name = name;
         this.generator = generator;
     }
 
     @Override
-    public CaptnProtoValue build() {
-        return new CaptnProtoValue(name, type, generator.next(), defaultValue, constant);
+    public ProtoValue build() {
+        return new ProtoValue(name, type, generator.next(), defaultValue, constant);
     }
 
-    public CaptnProtoValueBuilder setDefaultValue(String defaultValue) {
+    public ProtoValueBuilder setDefaultValue(String defaultValue) {
         this.defaultValue = defaultValue;
         return this;
     }
 
-    public CaptnProtoValueBuilder setType(BuildinType type) {
+    public ProtoValueBuilder setType(BuildinType type) {
         this.type = type.getSyntax();
         return this;
     }
 
-    public CaptnProtoValueBuilder setType(String type) {
+    public ProtoValueBuilder setType(String type) {
         this.type = type;
         return this;
     }

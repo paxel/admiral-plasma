@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import com.squareup.javapoet.ClassName;
 
-import admiral_plasma.definition.api.CaptnProtoValue;
+import admiral_plasma.definition.api.ProtoValue;
 import admiral_plasma.poetry.java.simple.ClassTopology;
 
 public interface ContainerGenerator {
@@ -19,7 +19,7 @@ public interface ContainerGenerator {
 
     void addGroup(GroupGenerator captainContainer) throws IOException;
 
-    void addValue(CaptnProtoValue captainValue);
+    void addValue(ProtoValue captainValue);
 
     String getName();
 

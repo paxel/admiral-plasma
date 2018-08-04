@@ -5,15 +5,15 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
-import admiral_plasma.definition.api.CaptnProtoEnum;
+import admiral_plasma.definition.api.ProtoEnum;
 
 /**
  *
  */
-public class EnumCollector implements Builder<List<CaptnProtoEnum>> {
+public class EnumCollector implements Builder<List<ProtoEnum>> {
 
-    private final CompletableFuture<List<CaptnProtoEnum>> first = new CompletableFuture<>();
-    private CompletableFuture<List<CaptnProtoEnum>> last;
+    private final CompletableFuture<List<ProtoEnum>> first = new CompletableFuture<>();
+    private CompletableFuture<List<ProtoEnum>> last;
     private final Parents parents;
 
     public EnumCollector(Parents parents) {
@@ -21,8 +21,8 @@ public class EnumCollector implements Builder<List<CaptnProtoEnum>> {
         this.parents = parents;
     }
 
-    public CaptnProtoEnumBuilder add(String name) {
-        final CaptnProtoEnumBuilder builder = new CaptnProtoEnumBuilder(name, parents);
+    public ProtoEnumBuilder add(String name) {
+        final ProtoEnumBuilder builder = new ProtoEnumBuilder(name, parents);
         synchronized (builder) {
             this.last = getLast().thenApply(new ChainBuilder<>(builder)::addBuild);
         }
@@ -30,12 +30,12 @@ public class EnumCollector implements Builder<List<CaptnProtoEnum>> {
     }
 
     @Override
-    public List<CaptnProtoEnum> build() throws InterruptedException, ExecutionException {
+    public List<ProtoEnum> build() throws InterruptedException, ExecutionException {
         first.complete(new ArrayList<>());
         return getLast().get();
     }
 
-    private CompletableFuture<List<CaptnProtoEnum>> getLast() {
+    private CompletableFuture<List<ProtoEnum>> getLast() {
         if (last == null) {
             return first;
         }

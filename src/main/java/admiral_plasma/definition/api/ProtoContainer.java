@@ -6,18 +6,18 @@ import java.util.List;
 
 import admiral_plasma.definition.builder.Parents;
 
-public class CaptnProtoContainer implements IndentedPrinter {
+public class ProtoContainer implements IndentedPrinter {
 
     private final String name;
     private final ContainerType type;
 
-    private final List<CaptnProtoValue> values;
-    private final List<CaptnProtoContainer> structs;
-    private final List<CaptnProtoEnum> enums;
+    private final List<ProtoValue> values;
+    private final List<ProtoContainer> structs;
+    private final List<ProtoEnum> enums;
     private final Parents parents;
 
-    public CaptnProtoContainer(String name, ContainerType type, List<CaptnProtoValue> values,
-            List<CaptnProtoContainer> structs, List<CaptnProtoEnum> enums, Parents parents) {
+    public ProtoContainer(String name, ContainerType type, List<ProtoValue> values,
+            List<ProtoContainer> structs, List<ProtoEnum> enums, Parents parents) {
         this.name = name;
         this.type = type;
         this.values = values;
@@ -26,7 +26,7 @@ public class CaptnProtoContainer implements IndentedPrinter {
         this.parents = parents;
     }
 
-    public List<CaptnProtoEnum> getEnums() {
+    public List<ProtoEnum> getEnums() {
         return enums;
     }
 
@@ -42,7 +42,7 @@ public class CaptnProtoContainer implements IndentedPrinter {
         return parents;
     }
 
-    public List<CaptnProtoContainer> getStructs() {
+    public List<ProtoContainer> getStructs() {
         return structs;
     }
 
@@ -50,7 +50,7 @@ public class CaptnProtoContainer implements IndentedPrinter {
         return type;
     }
 
-    public List<CaptnProtoValue> getValues() {
+    public List<ProtoValue> getValues() {
         return values;
     }
 
@@ -59,13 +59,13 @@ public class CaptnProtoContainer implements IndentedPrinter {
         out.append('\n');
         printIndent(out, indent);
         out.append(type.getSyntax() + " " + name + " {\n");
-        for (CaptnProtoValue value : values) {
+        for (ProtoValue value : values) {
             value.print(out, indent + INDENT_SIZE);
         }
-        for (CaptnProtoContainer struct : structs) {
+        for (ProtoContainer struct : structs) {
             struct.print(out, indent + INDENT_SIZE);
         }
-        for (CaptnProtoEnum cEnum : enums) {
+        for (ProtoEnum cEnum : enums) {
             cEnum.print(out, indent + INDENT_SIZE);
         }
         printIndent(out, indent);

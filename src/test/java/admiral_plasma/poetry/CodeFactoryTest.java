@@ -7,7 +7,7 @@ import java.util.concurrent.ExecutionException;
 import org.junit.Test;
 
 import admiral_plasma.definition.TestSchema;
-import admiral_plasma.definition.api.CaptnProtoSchema;
+import admiral_plasma.definition.api.ProtoSchema;
 import admiral_plasma.poetry.api.CodeFactory;
 import admiral_plasma.poetry.api.CodeProperties;
 import admiral_plasma.poetry.java.simple.SimpleClassGenerator;
@@ -18,7 +18,7 @@ import admiral_plasma.poetry.java.simple.SimpleUnionGenerator;
 
 public class CodeFactoryTest {
 
-    private CaptnProtoSchema schema;
+    private ProtoSchema schema;
     private CodeProperties properties;
 
     @Test

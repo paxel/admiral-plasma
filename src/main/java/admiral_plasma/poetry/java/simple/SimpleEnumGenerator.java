@@ -6,17 +6,17 @@ import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.TypeSpec;
 import com.squareup.javapoet.TypeSpec.Builder;
 
-import admiral_plasma.definition.api.CaptnProtoEnum;
+import admiral_plasma.definition.api.ProtoEnum;
 import admiral_plasma.poetry.api.CodeContext;
 import admiral_plasma.poetry.api.EnumGenerator;
 
 public class SimpleEnumGenerator implements EnumGenerator {
 
     private final CodeContext context;
-    private final CaptnProtoEnum captainEnum;
+    private final ProtoEnum captainEnum;
     private ClassTopology topology;
 
-    public SimpleEnumGenerator(CodeContext contex, CaptnProtoEnum captainEnum, ClassTopology parentTopology) {
+    public SimpleEnumGenerator(CodeContext contex, ProtoEnum captainEnum, ClassTopology parentTopology) {
         super();
         this.context = contex;
         this.captainEnum = captainEnum;

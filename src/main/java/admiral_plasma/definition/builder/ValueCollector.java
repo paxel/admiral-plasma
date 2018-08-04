@@ -5,18 +5,18 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
-import admiral_plasma.definition.api.CaptnProtoValue;
+import admiral_plasma.definition.api.ProtoValue;
 
 /**
  *
  */
-public class ValueCollector implements Builder<List<CaptnProtoValue>> {
+public class ValueCollector implements Builder<List<ProtoValue>> {
 
-    private final CompletableFuture<List<CaptnProtoValue>> first = new CompletableFuture<>();
-    private CompletableFuture<List<CaptnProtoValue>> last;
+    private final CompletableFuture<List<ProtoValue>> first = new CompletableFuture<>();
+    private CompletableFuture<List<ProtoValue>> last;
 
-    public CaptnProtoValueBuilder add(String name, IdGenerator generator) {
-        final CaptnProtoValueBuilder builder = new CaptnProtoValueBuilder(name, generator);
+    public ProtoValueBuilder add(String name, IdGenerator generator) {
+        final ProtoValueBuilder builder = new ProtoValueBuilder(name, generator);
         synchronized (builder) {
             this.last = getLast().thenApply(new ChainBuilder<>(builder)::addBuild);
         }
@@ -24,12 +24,12 @@ public class ValueCollector implements Builder<List<CaptnProtoValue>> {
     }
 
     @Override
-    public List<CaptnProtoValue> build() throws InterruptedException, ExecutionException {
+    public List<ProtoValue> build() throws InterruptedException, ExecutionException {
         first.complete(new ArrayList<>());
         return getLast().get();
     }
 
-    private CompletableFuture<List<CaptnProtoValue>> getLast() {
+    private CompletableFuture<List<ProtoValue>> getLast() {
         if (last == null) {
             return first;
         }

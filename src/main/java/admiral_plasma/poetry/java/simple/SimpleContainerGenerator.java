@@ -10,7 +10,7 @@ import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeSpec;
 import com.squareup.javapoet.TypeSpec.Builder;
 
-import admiral_plasma.definition.api.CaptnProtoValue;
+import admiral_plasma.definition.api.ProtoValue;
 import admiral_plasma.poetry.api.CodeContext;
 import admiral_plasma.poetry.api.ContainerGenerator;
 import admiral_plasma.poetry.api.EnumGenerator;
@@ -90,7 +90,7 @@ public class SimpleContainerGenerator implements ContainerGenerator {
     }
 
     @Override
-    public void addValue(CaptnProtoValue captainValue) {
+    public void addValue(ProtoValue captainValue) {
 
         ClassName className = context.getClassName(captainValue);
         String name = captainValue.getName();

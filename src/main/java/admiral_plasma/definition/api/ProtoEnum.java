@@ -6,7 +6,7 @@ import java.util.List;
 
 import admiral_plasma.definition.builder.Parents;
 
-public class CaptnProtoEnum implements IndentedPrinter {
+public class ProtoEnum implements IndentedPrinter {
 
     private final List<String> entries;
 
@@ -14,7 +14,7 @@ public class CaptnProtoEnum implements IndentedPrinter {
 
     private final Parents parents;
 
-    public CaptnProtoEnum(String name, List<String> entries, Parents parents) {
+    public ProtoEnum(String name, List<String> entries, Parents parents) {
         this.entries = entries;
         this.name = name;
         this.parents = parents;

@@ -13,9 +13,9 @@ import java.util.concurrent.ExecutionException;
 import org.junit.Test;
 
 import admiral_plasma.definition.TestSchema;
-import admiral_plasma.definition.api.CaptnProtoSchema;
+import admiral_plasma.definition.api.ProtoSchema;
 
-public class CaptProtoSchemaBuilderTest {
+public class ProtoSchemaBuilderTest {
 
     private String NL = "\n";
 
@@ -24,7 +24,7 @@ public class CaptProtoSchemaBuilderTest {
 
         final ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         final PrintWriter printWriter = new PrintWriter(byteArrayOutputStream);
-        CaptnProtoSchema schema = TestSchema.get();
+        ProtoSchema schema = TestSchema.get();
         schema.print(printWriter);
         printWriter.flush();
 

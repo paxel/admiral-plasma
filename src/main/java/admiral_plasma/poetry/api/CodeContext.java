@@ -8,8 +8,8 @@ import java.util.Map;
 import com.squareup.javapoet.ClassName;
 
 import admiral_plasma.definition.api.BuildinType;
-import admiral_plasma.definition.api.CaptnProtoEnum;
-import admiral_plasma.definition.api.CaptnProtoValue;
+import admiral_plasma.definition.api.ProtoEnum;
+import admiral_plasma.definition.api.ProtoValue;
 import admiral_plasma.poetry.java.simple.ClassTopology;
 import admiral_plasma.poetry.support.Blob;
 import admiral_plasma.poetry.support.Uint16;
@@ -37,7 +37,7 @@ public class CodeContext {
         return properties.getTargetDir();
     }
 
-    public ClassName getClassName(CaptnProtoValue entry) {
+    public ClassName getClassName(ProtoValue entry) {
         if (override.containsKey(entry.getType())) {
             return override.get(entry.getType());
         }
@@ -90,7 +90,7 @@ public class CodeContext {
         return properties.getStructGeneratorFactory().create(name, context, parentTopology);
     }
 
-    public EnumGenerator newEnumGenerator(CodeContext context, CaptnProtoEnum captainEnum,
+    public EnumGenerator newEnumGenerator(CodeContext context, ProtoEnum captainEnum,
             ClassTopology parentTopology) {
         return properties.getEnumGeneratorFactory().create(context, captainEnum, parentTopology);
     }
