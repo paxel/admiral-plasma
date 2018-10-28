@@ -3,6 +3,10 @@ package admiral_plasma.definition.api;
 import java.io.IOException;
 import java.io.Writer;
 
+/**
+ * 
+ * @author axel
+ */
 public interface IndentedPrinter {
 
     static final int INDENT_SIZE = 3;

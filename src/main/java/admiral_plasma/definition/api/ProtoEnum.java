@@ -92,15 +92,19 @@ public class ProtoEnum implements IndentedPrinter {
         public ProtoEnumBuilder add(String name) {
             final ProtoEnumBuilder builder = ProtoEnum.create(name, parents);
             synchronized (first) {
-                this.last = getLast().thenApply(new ChainBuilder<>(builder)::addBuild);
+                this.last = getLast().thenApply(builtEnums -> BuildResultCollector.buildAndCollect(builder, builtEnums));
             }
             return builder;
         }
 
         @Override
-        public List<ProtoEnum> build() throws InterruptedException, ExecutionException {
+        public List<ProtoEnum> build() throws BuildException {
             first.complete(new ArrayList<>());
-            return getLast().get();
+            try {
+                return getLast().get();
+            } catch (InterruptedException | ExecutionException ex) {
+                throw new BuildException(ex);
+            }
         }
 
         private CompletableFuture<List<ProtoEnum>> getLast() {

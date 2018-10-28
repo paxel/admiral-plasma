@@ -1,6 +1,7 @@
 package admiral_plasma.poetry;
 
 import admiral_plasma.definition.TestSchema;
+import admiral_plasma.definition.api.BuildException;
 import admiral_plasma.definition.api.ProtoSchema;
 import admiral_plasma.poetry.api.CodeFactory;
 import admiral_plasma.poetry.api.CodeProperties;
@@ -20,13 +21,13 @@ public class CodeFactoryTest {
     private CodeProperties properties;
 
     @Test
-    public void test() throws IOException, InterruptedException, ExecutionException {
+    public void test() throws IOException, BuildException {
         givenSchema();
         givenProperties();
         new CodeFactory().creatCode(schema, properties);
     }
 
-    private void givenSchema() throws InterruptedException, ExecutionException {
+    private void givenSchema() throws BuildException {
         this.schema = TestSchema.get();
 
     }

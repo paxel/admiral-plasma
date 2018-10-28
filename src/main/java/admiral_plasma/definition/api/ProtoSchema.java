@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 public class ProtoSchema {
 
@@ -56,7 +55,7 @@ public class ProtoSchema {
         }
 
         @Override
-        public ProtoSchema build() throws InterruptedException, ExecutionException {
+        public ProtoSchema build() throws BuildException {
             return new ProtoSchema(containers.build(), enums.build());
         }
     }

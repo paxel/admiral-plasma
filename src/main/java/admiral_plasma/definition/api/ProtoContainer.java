@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class ProtoContainer implements IndentedPrinter {
 
@@ -122,13 +124,8 @@ public class ProtoContainer implements IndentedPrinter {
         }
 
         @Override
-        public ProtoContainer build() {
-            try {
-                return new ProtoContainer(name, type, values.build(), containers.build(), enums.build(), parents);
-            } catch (InterruptedException | ExecutionException ex) {
-                throw new RuntimeException(ex);
-            }
-
+        public ProtoContainer build() throws BuildException {
+            return new ProtoContainer(name, type, values.build(), containers.build(), enums.build(), parents);
         }
     }
 
@@ -147,7 +144,7 @@ public class ProtoContainer implements IndentedPrinter {
             final ProtoContainerBuilder builder = new ProtoContainerBuilder(name, ContainerType.GROUP,
                     idGenerator, parents);
             synchronized (builder) {
-                this.last = getLast().thenApply(new ChainBuilder<>(builder)::addBuild);
+                this.last = getLast().thenApply(builtContainers -> BuildResultCollector.buildAndCollect(builder, builtContainers));
             }
             return builder;
         }
@@ -156,7 +153,7 @@ public class ProtoContainer implements IndentedPrinter {
             final ProtoContainerBuilder builder = new ProtoContainerBuilder(name, ContainerType.STRUCT,
                     new IdGenerator(), parents);
             synchronized (builder) {
-                this.last = getLast().thenApply(new ChainBuilder<>(builder)::addBuild);
+                this.last = getLast().thenApply(builtContainers -> BuildResultCollector.buildAndCollect(builder, builtContainers));
             }
             return builder;
         }
@@ -165,15 +162,19 @@ public class ProtoContainer implements IndentedPrinter {
             final ProtoContainerBuilder builder = new ProtoContainerBuilder(name, ContainerType.UNION,
                     IdGenerator, parents);
             synchronized (builder) {
-                this.last = getLast().thenApply(new ChainBuilder<>(builder)::addBuild);
+                this.last = getLast().thenApply(builtContainers -> BuildResultCollector.buildAndCollect(builder, builtContainers));
             }
             return builder;
         }
 
         @Override
-        public List<ProtoContainer> build() throws InterruptedException, ExecutionException {
+        public List<ProtoContainer> build() throws BuildException {
             first.complete(new ArrayList<>());
-            return getLast().get();
+            try {
+                return getLast().get();
+            } catch (InterruptedException | ExecutionException ex) {
+                throw new BuildException(ex);
+            }
         }
 
         private CompletableFuture<List<ProtoContainer>> getLast() {

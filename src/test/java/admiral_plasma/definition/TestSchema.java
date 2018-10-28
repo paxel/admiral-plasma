@@ -1,14 +1,14 @@
 package admiral_plasma.definition;
 
+import admiral_plasma.definition.api.BuildException;
 import admiral_plasma.definition.api.ProtoContainer.ProtoContainerBuilder;
 import admiral_plasma.definition.api.ProtoSchema;
 import admiral_plasma.definition.api.ProtoSchema.ProtoSchemaBuilder;
 import admiral_plasma.definition.api.ProtoValue.BuildinType;
-import java.util.concurrent.ExecutionException;
 
 public class TestSchema {
 
-    public static ProtoSchema get() throws InterruptedException, ExecutionException {
+    public static ProtoSchema get() throws BuildException {
         ProtoSchemaBuilder builder = ProtoSchema.create();
         {
             final ProtoContainerBuilder node = builder.addStruct("Node");
