@@ -4,9 +4,10 @@ import java.io.IOException;
 import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
 
+/**
+ * An immutable representation of a CapnProto enum.
+ */
 public class ProtoEnum implements IndentedPrinter {
 
     private final List<String> entries;

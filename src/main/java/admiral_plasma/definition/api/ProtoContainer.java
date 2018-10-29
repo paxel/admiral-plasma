@@ -6,8 +6,9 @@ import java.util.List;
 
 /**
  * The ProtoContainer is an immutable container for other ProtoContainer,
- * {@link ProtoEnum}s and {@link ProtoValue}s. The Container can be either a
- * group, an union or a struct.
+ * {@link ProtoEnum}s and {@link ProtoValue}s. The Container represents either a
+ * {@link ContainerType#UNION}, a {@link ContainerType#GROUP} or a
+ * {@link ContainerType#STRUCT}
  */
 public class ProtoContainer implements IndentedPrinter {
 

@@ -7,6 +7,9 @@ import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This represents an immutable CapnProtoSchema.
+ */
 public class ProtoSchema {
 
     private final List<ProtoContainer> structs;
@@ -34,10 +37,18 @@ public class ProtoSchema {
         }
     }
 
+    /**
+     * Creates a new builder for a {@link ProtoSchema}.
+     *
+     * @return a new builder.
+     */
     public static ProtoSchemaBuilder create() {
         return new ProtoSchemaBuilder();
     }
 
+    /**
+     * This builder creates a new {@link ProtoSchema}.
+     */
     public static class ProtoSchemaBuilder implements Builder<ProtoSchema> {
 
         private ProtoSchemaBuilder() {
@@ -46,10 +57,22 @@ public class ProtoSchema {
         private final ContainerCollector containers = new ContainerCollector(new Parents());
         private final ProtoEnum.EnumCollector enums = new ProtoEnum.EnumCollector(new Parents());
 
+        /**
+         * Adds and returns a new {@link ProtoEnum.ProtoEnumBuilder}.
+         *
+         * @param name The name of the enum.
+         * @return the new builder.
+         */
         public ProtoEnum.ProtoEnumBuilder addEnum(String name) {
             return enums.add(name);
         }
 
+        /**
+         * Adds and returns a new {@link ProtoContainerBuilder}.
+         *
+         * @param name The name of the container.
+         * @return the new builder.
+         */
         public ProtoContainerBuilder addStruct(String name) {
             return containers.addStruct(name);
         }

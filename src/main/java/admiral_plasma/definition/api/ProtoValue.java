@@ -2,11 +2,11 @@ package admiral_plasma.definition.api;
 
 import java.io.IOException;
 import java.io.Writer;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
 
+/**
+ * Represents a CapnProto value.
+ */
 public class ProtoValue implements IndentedPrinter {
 
     private final String name;
