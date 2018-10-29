@@ -80,8 +80,7 @@ public class ProtoEnum implements IndentedPrinter {
 
     public static class EnumCollector implements Builder<List<ProtoEnum>> {
 
-        private final CompletableFuture<List<ProtoEnum>> first = new CompletableFuture<>();
-        private CompletableFuture<List<ProtoEnum>> last;
+        private final ListBuilder<ProtoEnum> enums = new ListBuilder<>();
         private final Parents parents;
 
         public EnumCollector(Parents parents) {
@@ -91,27 +90,13 @@ public class ProtoEnum implements IndentedPrinter {
 
         public ProtoEnumBuilder add(String name) {
             final ProtoEnumBuilder builder = ProtoEnum.create(name, parents);
-            synchronized (first) {
-                this.last = getLast().thenApply(builtEnums -> BuildResultCollector.buildAndCollect(builder, builtEnums));
-            }
+            enums.add(builder);
             return builder;
         }
 
         @Override
         public List<ProtoEnum> build() throws BuildException {
-            first.complete(new ArrayList<>());
-            try {
-                return getLast().get();
-            } catch (InterruptedException | ExecutionException ex) {
-                throw new BuildException(ex);
-            }
-        }
-
-        private CompletableFuture<List<ProtoEnum>> getLast() {
-            if (last == null) {
-                return first;
-            }
-            return last;
+            return enums.build();
         }
     }
 

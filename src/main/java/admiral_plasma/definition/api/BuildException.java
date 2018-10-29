@@ -2,8 +2,6 @@ package admiral_plasma.definition.api;
 
 /**
  * Exception caused during {@link Builder#build() }
- *
- * @author axel
  */
 public class BuildException extends Exception {
 
